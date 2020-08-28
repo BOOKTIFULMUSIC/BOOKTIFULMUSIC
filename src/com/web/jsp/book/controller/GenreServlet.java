@@ -36,14 +36,6 @@ public class GenreServlet extends HttpServlet {
 				ArrayList<Book> list = null;
 				BookService bs = new BookService();
 				
-				
-				String btitle = request.getParameter("title");
-				String author = request.getParameter("author");
-				int like = Integer.parseInt(request.getParameter("like"));
-				String bimg = request.getParameter("img");
-				
-				Book b = new Book(btitle,author,like,bimg);
-				
 				int startPage;
 				int endPage;
 				int maxPage;
@@ -57,6 +49,7 @@ public class GenreServlet extends HttpServlet {
 				}
 				
 				int listCount = bs.getListCount();
+				System.out.println("총 페이지 수 : "+ listCount);
 				
 				maxPage = (int)((double)listCount/limit+0.9);
 				startPage = ((int)((double)currentPage/limit+0.9)-1)*limit+1;
@@ -65,7 +58,7 @@ public class GenreServlet extends HttpServlet {
 					endPage = maxPage;
 				}
 				
-				list = bs.selectList(b,currentPage,limit);
+				list = bs.selectList(currentPage,limit);
 				
 				String page="";
 				if(list!=null) {

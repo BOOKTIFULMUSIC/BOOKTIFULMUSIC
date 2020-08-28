@@ -48,37 +48,39 @@ private Properties prop;
 		}
 		return listCount;
 	}
-	public ArrayList<Book> selectList(Connection con, Book b, int currentPage, int limit) {
+	public ArrayList<Book> selectList(Connection con, int currentPage, int limit) {
 		ArrayList<Book> list = null;
-		PreparedStatement pstmt = null;
+		Statement stmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectGenreList");
 		
 		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, b.getbImage());
-			pstmt.setString(2, b.getBtitle());
-			pstmt.setString(3, b.getAuthor());
-			pstmt.setInt(4, b.getbLikeCount());
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
 			
-			rset = pstmt.executeQuery();
+			list = new ArrayList<Book>();
 			
 			while(rset.next()) {
 				Book bo = new Book();
-				
-				bo.setbImage(rset.getString("BIMAGES"));
+				bo.setBno(rset.getInt("BNO"));
 				bo.setBtitle(rset.getString("BTITLE"));
-				bo.setAuthor(rset.getString("AUTHOR"));
+				bo.setAuthor(rset.getString("PUBLISHER"));
+				bo.setWriterDate(rset.getDate("WRITERDATE"));
+				bo.setBgenre(rset.getString("BGENRE"));
+				bo.setPrice(rset.getInt("PRICE"));
 				bo.setbLikeCount(rset.getInt("BLIKECOUNT"));
-				
+				bo.setbReviewCount(rset.getInt("BREVIEWCOUNT"));
+				bo.setbImage(rset.getString("BIMAGE"));
+				bo.setbStory(rset.getString("BSTORY"));
+			
 				list.add(bo);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(rset);
-			close(pstmt);
+			close(stmt);
 		}
 		return list;
 	}

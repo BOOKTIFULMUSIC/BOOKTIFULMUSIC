@@ -20,10 +20,10 @@ public class BookService {
 		return listCount;
 	}
 
-	public ArrayList<Book> selectList(Book b, int currentPage, int limit) {
+	public ArrayList<Book> selectList( int currentPage, int limit) {
 		con = getConnection();
 		
-		ArrayList<Book> list = bDao.selectList(con,b,currentPage,limit);
+		ArrayList<Book> list = bDao.selectList(con,currentPage,limit);
 		close(con);
 		return list;
 	}
