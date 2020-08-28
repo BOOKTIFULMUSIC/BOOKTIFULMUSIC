@@ -63,7 +63,7 @@
         <b># 취향 수정</b>
         <p id="info">반갑습니다. 원하시는 장르를 선택해주세요.</p>
     </div>
-    <form>
+    <form id="pop_select_b" method="get" action="/BOOKTIFULMUSIC/pop_insert.b">
     <fieldset id="check">
     <legend><p id="subject"># 도서</p></legend>
         <ul>
@@ -84,6 +84,9 @@
             <li><input type="checkbox" id="bgenre15" name="genre"><label for="bgenre15"># 만화</label></li>
         </ul>
     </fieldset>
+    </form>
+    
+        <form id="pop_select_m" method="get" action="/BOOKTIFULMUSIC/pop_insert.m">
     <fieldset id="check">
     <legend><p id="subject"># 음악</p></legend>
         

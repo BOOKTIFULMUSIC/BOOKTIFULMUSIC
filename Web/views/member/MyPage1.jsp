@@ -8,7 +8,6 @@
     <meta charset="UTF-8">
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     <title>My Page - 나의 정보</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/all_common.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myinfo.css">
 
 </head>
@@ -20,10 +19,10 @@
        
             <div id="sub_menu">
                 <ul>
-                    <li><a href="../member/My Page_1.jsp" >나의정보</a></li>
-                    <li>| <a href="../member/My Page_2.jsp">장바구니</a></li>
-                    <li>| <a href="../member/My Page_3.jsp">구매목록</a></li>
-                    <li>| <a href="../member/My Page_4.jsp">이용권구매</a></li>
+                    <li><a href="../member/MyPage1.jsp" >나의정보</a></li>
+                    <li>| <a href="../member/MyPage2.jsp">장바구니</a></li>
+                    <li>| <a href="../member/MyPage3.jsp">구매목록</a></li>
+                    <li>| <a href="../member/MyPage4.jsp">이용권구매</a></li>
                 </ul>
             </div>
 
