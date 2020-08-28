@@ -50,6 +50,7 @@
                 <button type="submit" id="join_btn" onclick="insertMember();">회원가입</button>
             </form>
         </div>
+        </div>
         <%@ include file="../common/footer.jsp" %>
         <script>
         	function insertMember(){
