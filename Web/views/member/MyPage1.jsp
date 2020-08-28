@@ -36,6 +36,7 @@
                     <li>이메일&nbsp;&nbsp;:&nbsp;&nbsp;<%= m.getEmail() %></li>
                 </ul>
                 <div id="btn">
+	                <input type="hidden" value="<%= m.getUserId() %>" name="userId">
                     <button id="btn1" onclick="test1();" value="팝업창호출">#취향수정</button>
                     <button id="btn2" onclick="test2();">개인정보수정</button>
                 </div>
@@ -79,9 +80,10 @@
 </div>
 <script>
     function test1(){
-        window.open("../member/pop_genre_select.html","취향수정","width=1000, height=1000, left=450,top=50,location=0, directories=0,resizable=0,status=0,toolbar=0,menubar=0")
-
+      	var userId = $('#btn1').parent().find("input").val();  
+    	window.open("/BOOKTIFULMUSIC/mSelectGenre.me?userId="+userId,"취향수정","width=1000, height=1000, left=450,top=50,location=0, directories=0,resizable=0,status=0,toolbar=0,menubar=0")		
     }
+    
     function test2(){
     window.open("../view/modifying_Information.html","정보수정","width=1000, height=1000, left=450,top=50,location=0, directories=0,resizable=0,status=0,toolbar=0,menubar=0")
 }
