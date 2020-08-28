@@ -1,6 +1,11 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.web.jsp.Member.model.vo.*"%>
-<%  Member m = (Member)session.getAttribute("member");  %>
+<%  Member m = (Member)session.getAttribute("member"); 
+	ArrayList<PopListB> pb = (ArrayList<PopListB>)request.getAttribute("popListB");
+
+
+%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -63,7 +68,7 @@
         <b># 취향 수정</b>
         <p id="info">반갑습니다. 원하시는 장르를 선택해주세요.</p>
     </div>
-    <form>
+    <form id="pop_select_b" method="get" action="/BOOKTIFULMUSIC/pop_insert.b">
     <fieldset id="check">
     <legend><p id="subject"># 도서</p></legend>
         <ul>
@@ -84,6 +89,9 @@
             <li><input type="checkbox" id="bgenre15" name="genre"><label for="bgenre15"># 만화</label></li>
         </ul>
     </fieldset>
+    </form>
+    
+        <form id="pop_select_m" method="get" action="/BOOKTIFULMUSIC/pop_insert.m">
     <fieldset id="check">
     <legend><p id="subject"># 음악</p></legend>
         
@@ -124,6 +132,7 @@
             
         });
 
+        
     </script>
 
     

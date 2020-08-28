@@ -6,10 +6,12 @@ import static com.web.jsp.common.JDBCTemplate.getConnection;
 import static com.web.jsp.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.web.jsp.Member.exception.MemberException;
 import com.web.jsp.Member.model.dao.MemberDao;
 import com.web.jsp.Member.model.vo.Member;
+import com.web.jsp.Member.model.vo.PopListB;
 
 public class MemberService {
 	private Connection con;
@@ -42,6 +44,15 @@ public class MemberService {
 			throw new MemberException("회원 아이디나 비밀번호가 올바르지 않습니다.");
 		}
 		return mem;
+	}
+
+	public ArrayList<PopListB> selectBook(String id) {
+		con = getConnection();
+		ArrayList<PopListB> pb = mDao.selectListB(con,id);
+		close(con);
+		
+		
+		return pb;
 	}
 
 }
