@@ -58,7 +58,7 @@
         		location.href="/BOOKTIFULMUSIC/views/member/MyPage1.jsp";
         	}
         	function adminPage(){
-        		location.href="/BOOKTIFULMUSIC/views/member/adminMain.jsp";
+        		location.href="/BOOKTIFULMUSIC/views/member/My Page_1.jsp";
         	}
         </script>
         <div class="navibar_wrapper">
