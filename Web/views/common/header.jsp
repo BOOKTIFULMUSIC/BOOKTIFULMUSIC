@@ -94,10 +94,10 @@
 		function BookGenre(){
 			location.href="/BOOKTIFULMUSIC/bGenreList.bo";
 		}
-		function Book(){
+		function Music(){
 			location.href="/BOOKTIFULMUSIC/mTop100.mo";
 		}
-		function BookGenre(){
+		function MusicGenre(){
 			location.href="/BOOKTIFULMUSIC/mGenreList.mo";
 		}
 		function goNotice(){
