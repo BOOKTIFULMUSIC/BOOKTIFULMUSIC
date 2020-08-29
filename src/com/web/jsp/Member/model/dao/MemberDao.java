@@ -1,5 +1,7 @@
 package com.web.jsp.Member.model.dao;
 
+import static com.web.jsp.common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,8 +15,7 @@ import java.util.Properties;
 import com.web.jsp.Member.exception.MemberException;
 import com.web.jsp.Member.model.vo.Member;
 import com.web.jsp.Member.model.vo.PopListB;
-
-import static com.web.jsp.common.JDBCTemplate.*;
+import com.web.jsp.Member.model.vo.PopListM;
 public class MemberDao {
 	
 	private Properties prop;
@@ -131,18 +132,12 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			pb = new ArrayList<PopListB>();
 			
-			if(rset != null) {
-				System.out.println("굿");
-				System.out.println(rset);
-			}else {
-				System.out.println("zzzzzzzzzzzzzzzzzzzz");
-			}
+			
 			while(rset.next()) {
 				PopListB b = new PopListB();
 				b.setPop_no_B(rset.getInt(1));
 				b.setUserId(rset.getString(2));
 				b.setPop_list_B(rset.getString(3));
-				System.out.println(b);
 				pb.add(b);
 			
 			}
@@ -155,6 +150,41 @@ public class MemberDao {
 		}
 		
 		return pb;
+	}
+
+
+	public ArrayList<PopListM> selectListM(Connection con, String id) {
+
+		ArrayList<PopListM> pm = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectListM");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rset = pstmt.executeQuery();
+			pm = new ArrayList<PopListM>();
+			
+			
+			while(rset.next()) {
+				PopListM m = new PopListM();
+				m.setPop_no_M(rset.getInt(1));
+				m.setUserId(rset.getString(2));
+				m.setPop_list_M(rset.getString(3));
+				pm.add(m);
+			
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return pm;
 	}
 
 }

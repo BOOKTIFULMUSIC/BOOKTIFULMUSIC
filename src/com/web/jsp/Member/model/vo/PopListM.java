@@ -39,6 +39,11 @@ public class PopListM implements Serializable{
 	public void setPop_list_M(String pop_list_M) {
 		this.pop_list_M = pop_list_M;
 	}
+
+	@Override
+	public String toString() {
+		return pop_no_M + ", "+ pop_list_M + ", " + pop_list_M;
+	}
 	
 	
 }

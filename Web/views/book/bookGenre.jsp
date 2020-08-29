@@ -2,7 +2,8 @@
     pageEncoding="UTF-8" import="com.web.jsp.Member.model.vo.*" import="com.web.jsp.book.model.vo.*"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.web.jsp.book.model.vo.PageInfo"%>
-<% ArrayList<Book> list = (ArrayList<Book>)request.getAttribute("list"); 
+<% ArrayList<Book> list = (ArrayList<Book>)request.getAttribute("list");
+ArrayList<Book> ubList = (ArrayList<Book>)request.getAttribute("ubList");
 PageInfo pi = (PageInfo)request.getAttribute("pi");
 int listCount = pi.getListCount();
 int currentPage = pi.getCurrentPage();
@@ -139,7 +140,8 @@ int endPage = pi.getEndPage(); %>
 
                 <div id="imgbox">
                     <ul id="listOne">
-                         <% for(Book b : list) { %>
+                        <% if(m != null){ %>
+                    	<% for(Book b : ubList) { %>
                             <li><a onclick="BookInfo()">
                                     <img name="img" src="${pageContext.request.contextPath}/resources/images/book/<%= b.getbImage() %>">
                                     <span>
@@ -150,6 +152,20 @@ int endPage = pi.getEndPage(); %>
                                     </span>	
                             	</a>
                             </li>
+                        <% } %>
+                        <% } else { %>
+                        	<% for(Book b : list) { %>
+                            <li><a onclick="BookInfo()">
+                                    <img name="img" src="${pageContext.request.contextPath}/resources/images/book/<%= b.getbImage() %>">
+                                    <span>
+                                        <p id="title" name="title" style="color: black;"><%= b.getBtitle()%></p>
+                                    	<p id="author_like" name="author" style="color: #757575;">
+                                        <b><%= b.getAuthor() %></b>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                        <b class="fas fa-heart">♥</b><%= b.getbLikeCount() %></p>
+                                    </span>	
+                            	</a>
+                            </li>
+                        	<% } %>
                         <% } %>
                     </ul>
                 </div>

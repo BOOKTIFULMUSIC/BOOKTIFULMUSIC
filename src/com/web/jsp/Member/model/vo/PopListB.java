@@ -46,7 +46,7 @@ public class PopListB implements Serializable{
 
 	@Override
 	public String toString() {
-		return "PopListB [pop_no_B=" + pop_no_B + ", userId=" + userId + ", pop_list_B=" + pop_list_B + "]";
+		return pop_no_B + ", " + userId + ", " + pop_list_B;
 	}
 	
 	

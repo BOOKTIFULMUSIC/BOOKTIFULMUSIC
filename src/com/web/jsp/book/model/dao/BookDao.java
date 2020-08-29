@@ -90,7 +90,7 @@ public class BookDao {
 		}
 		return list;
 	}
-	public ArrayList<Book> userGenre(Connection con, String userId) {
+	public ArrayList<Book> userGenre(Connection con, String userId,int currentPage, int limit) {
 		ArrayList<Book> ubList = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -99,7 +99,12 @@ public class BookDao {
 		
 		try {
 			pstmt = con.prepareStatement(sql);
+			int startRow = (currentPage-1)*limit +1; // 3-1*10 21
+			int endRow = startRow + limit -1; // 30
 			pstmt.setString(1, userId);
+			pstmt.setInt(2, endRow);
+			pstmt.setInt(3, startRow);
+			
 			
 			rset = pstmt.executeQuery();
 			
@@ -120,6 +125,7 @@ public class BookDao {
 			
 				ubList.add(bo);
 			}
+			System.out.println("Dao"+ubList);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		} finally {
