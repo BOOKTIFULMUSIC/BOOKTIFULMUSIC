@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.web.jsp.Member.model.service.MemberService;
 import com.web.jsp.Member.model.vo.Member;
@@ -33,16 +34,18 @@ public class SelectGenre extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		String id = request.getParameter("userId");
 		MemberService ms = new MemberService();
 		
 		ArrayList<PopListB> pb = ms.selectBook(id);
-//		ArrayList<PopListM> pm = ms.selectMusic(id);
+		ArrayList<PopListM> pm = ms.selectMusic(id);
 		
 		System.out.println(pb);
+		System.out.println(pm);
+		System.out.println(pb.get(1).getPop_list_B());
 		request.setAttribute("popListB", pb);
-//		request.setAttribute("popListM", pm);
+		request.setAttribute("popListM", pm);
 		request.getRequestDispatcher("views/member/pop_genre_select.jsp").forward(request, response);
 		
 		
