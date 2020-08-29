@@ -40,8 +40,9 @@
             
                 <tr id="music_chart_TOP100">
                 
-               <% for(Music mu : list){ %>
-                    <td>1</td>
+               <% for(Music mu : list){ int rank; %>
+              	 <%for(int i=1; i<101; i++){ rank = i; %>
+                    <td><%= rank %></td>
                     <td><a href="../view/Music_Info.html"><img src="${pageContext.request.contextPath}/resources/images/music/<%= mu.getAlbumImage() %>" alt=""></a></td>
                     <td>
                         <ul>
@@ -53,6 +54,7 @@
                     <td><a href="리뷰창"><%= mu.getReviewAlbum() %></a></td>
                     <td><label onclick="streaming(this);"><%= '▶' %></label></td>
                 </tr>
+     			<%  }%>
                 <% } %>
                 
                 
