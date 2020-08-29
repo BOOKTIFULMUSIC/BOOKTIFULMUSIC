@@ -28,5 +28,13 @@ public class BookService {
 		return list;
 	}
 
+	public ArrayList<Book> userGenre(String userId) {
+		con = getConnection();
+		
+		ArrayList<Book> ubList = bDao.userGenre(con,userId);
+		close(con);
+		return ubList;
+	}
+
 	
 }

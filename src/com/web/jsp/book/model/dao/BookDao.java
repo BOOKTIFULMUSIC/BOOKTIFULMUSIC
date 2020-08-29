@@ -90,5 +90,43 @@ public class BookDao {
 		}
 		return list;
 	}
+	public ArrayList<Book> userGenre(Connection con, String userId) {
+		ArrayList<Book> ubList = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("userGenreList");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			ubList = new ArrayList<Book>();
+			
+			while(rset.next()) {
+				Book bo = new Book();
+				bo.setBno(rset.getLong("BNO"));
+				bo.setBtitle(rset.getString("BTITLE"));
+				bo.setAuthor(rset.getString("PUBLISHER"));
+				bo.setWriterDate(rset.getString("WRITERDATE"));
+				bo.setBgenre(rset.getString("BGENRE"));
+				bo.setPrice(rset.getInt("PRICE"));
+				bo.setbLikeCount(rset.getInt("BLIKECOUNT"));
+				bo.setbReviewCount(rset.getInt("BREVIEWCOUNT"));
+				bo.setbImage(rset.getString("BIMAGE"));
+				bo.setbStory(rset.getString("BSTORY"));
+			
+				ubList.add(bo);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return ubList;
+	}
 
 }
