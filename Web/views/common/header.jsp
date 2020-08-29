@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.web.jsp.Member.model.vo.*"%>
-<%  Member m = (Member)session.getAttribute("member");  %>
+<%  Member m = (Member)session.getAttribute("member"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,6 +61,7 @@
         		location.href="/BOOKTIFULMUSIC/nSelectAll.ano";
         	}
         </script>
+        
         <div class="navibar_wrapper">
             <div class="navibar">
                 <ul id="nav">
@@ -68,7 +69,11 @@
                     <li><a onclick="Book()"><b>도서</b></a>
                         <ul>
                             <li><a onclick="Book()">베스트셀러</a></li>
+                            <% if(m != null) {%>
+                            <li><a onclick="BookUserGenre()"><input type="hidden" id="userId" name="userId" value="<%= m.getUserId() %>">내 취향 도서찾기</a></li>
+                            <% } else { %>
                             <li><a onclick="BookGenre()">내 취향 도서찾기</a></li>
+                            <% } %>
                         </ul>
                     </li>
                     <li><a onclick="Music()"><b>음원</b></a>
@@ -93,6 +98,10 @@
 		}
 		function BookGenre(){
 			location.href="/BOOKTIFULMUSIC/bGenreList.bo";
+		}
+		function BookUserGenre(){
+			var userId = $('#userId').val();
+			location.href="/BOOKTIFULMUSIC/bUserGenre.bo?userId="+userId;
 		}
 		function Music(){
 			location.href="/BOOKTIFULMUSIC/mTop100.mo";

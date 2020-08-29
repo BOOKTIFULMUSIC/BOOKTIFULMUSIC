@@ -28,5 +28,13 @@ public class BookService {
 		return list;
 	}
 
+	public ArrayList<Book> userGenre(String userId,int currentPage, int limit) {
+		con = getConnection();
+		
+		ArrayList<Book> ubList = bDao.userGenre(con,userId,currentPage,limit);
+		close(con);
+		return ubList;
+	}
+
 	
 }
