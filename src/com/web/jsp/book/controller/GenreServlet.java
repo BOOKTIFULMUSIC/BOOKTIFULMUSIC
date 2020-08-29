@@ -33,47 +33,46 @@ public class GenreServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 검색 list
-				ArrayList<Book> list = null;
-				BookService bs = new BookService();
-				
-				int startPage;
-				int endPage;
-				int maxPage;
-				int currentPage;
-				int limit;
-				currentPage = 1;
-				limit = 12;
-				
-				if(request.getParameter("currentPage") != null) {
-					currentPage = Integer.parseInt(request.getParameter("currentPage"));
-				}
-				
-				int listCount = bs.getListCount();
-				System.out.println("총 페이지 수 : "+ listCount);
-				
-				maxPage = (int)((double)listCount/limit+0.9);
-				startPage = ((int)((double)currentPage/limit+0.9)-1)*limit+1;
-				endPage = startPage+limit-1;
-				if(endPage>maxPage) {
-					endPage = maxPage;
-				}
-				
-				list = bs.selectList(currentPage,limit);
-				
-				String page="";
-				if(list!=null) {
-					page = "views/book/bookGenre.jsp";
-					request.setAttribute("list", list);
-					
-					endPage = startPage+limit-1;
-					PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
-					request.setAttribute("pi", pi);
-				} else {
-					page = "views/common/errorPage.jsp";
-					request.setAttribute("msg", "도서 장르 목록 조회에 실패하였습니다.");
-				}
-				request.getRequestDispatcher(page).forward(request, response);
-			}
+		ArrayList<Book> list = null;
+		BookService bs = new BookService();
+		
+		int startPage;
+		int endPage;
+		int maxPage;
+		int currentPage;
+		int limit;
+		currentPage = 1;
+		limit = 12;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = bs.getListCount();
+		
+		maxPage = (int)((double)listCount/limit+0.9);
+		startPage = ((int)((double)currentPage/limit+0.9)-1)*limit+1;
+		endPage = startPage + limit -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		list = bs.selectList(currentPage,limit);
+		
+		String page="";
+		if(list!=null) {
+			page = "views/book/bookGenre.jsp";
+			request.setAttribute("list", list);
+			
+			endPage = startPage+limit-1;
+			PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
+			request.setAttribute("pi", pi);
+		} else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "도서 장르 목록 조회에 실패하였습니다.");
+		}
+		request.getRequestDispatcher(page).forward(request, response);
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
