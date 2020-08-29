@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.web.jsp.book.model.service.BookService;
 import com.web.jsp.book.model.vo.Book;
+import com.web.jsp.book.model.vo.PageInfo;
 
 /**
  * Servlet implementation class BuserGenreServlet
@@ -34,15 +34,43 @@ public class BuserGenreServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String userId = request.getParameter("userId");
+		System.out.println(userId);
 		
 		BookService bs = new BookService();
-		ArrayList<Book> ubList = new BookService().userGenre(userId); 
+		
+		int startPage;
+		int endPage;
+		int maxPage;
+		int currentPage;
+		int limit;
+		currentPage = 1;
+		limit = 12;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		int listCount = bs.getListCount();
+		
+		maxPage = (int)((double)listCount/limit+0.9);
+		startPage = ((int)((double)currentPage/limit+0.9)-1)*limit+1;
+		endPage = startPage + limit -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		ArrayList<Book> ubList = bs.userGenre(userId,currentPage,limit);
+		
+
+		System.out.println(ubList);
 		
 		
 		String page = "";
 		if(ubList != null) {
 			page = "views/book/bookGenre.jsp";
 			request.setAttribute("ubList", ubList);
+			endPage = startPage+limit-1;
+			PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
+			request.setAttribute("pi", pi);
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "회원님이 선택한 장르 리스트 조회에 실패하였습니다.");
