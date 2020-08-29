@@ -14,18 +14,18 @@
             <div id="section">
             <div id="imgbox">
                 <ul id="m_img">
-                    <li id="m_img1"><a onclick="MusicGenre()"><img src="resources/images/music/10465994_20200723160043_1000.jpg"><p>#발라드</p></a></li>
-                    <li id="m_img2"><a onclick="MusicGenre()"><img src="resources/images/music/10470991_20200803154243_1000.jpg"><p>#댄스</p></a></li>
-                    <li id="m_img3"><a onclick="MusicGenre()"><img src="resources/images/music/10470338_20200731144644_1000.jpg"><p>#락</p></a></li>
-                    <li id="m_img4"><a onclick="MusicGenre()"><img src="resources/images/music/10470413_20200731153315_1000.jpg"><p>#힙합</p></a></li>
-                    <li id="m_img5"><a onclick="MusicGenre()"><img src="resources/images/music/10470011_20200731103732_1000.jpg"><p>#인디</p></a></li>
+                    <li id="m_img1"><a onclick="SelectMGenre()"><img src="resources/images/music/10465994_20200723160043_1000.jpg"><p>#발라드</p></a></li>
+                    <li id="m_img2"><a onclick="SelectMGenre()"><img src="resources/images/music/10470991_20200803154243_1000.jpg"><p>#댄스</p></a></li>
+                    <li id="m_img3"><a onclick="SelectMGenre()"><img src="resources/images/music/10470338_20200731144644_1000.jpg"><p>#락</p></a></li>
+                    <li id="m_img4"><a onclick="SelectMGenre()"><img src="resources/images/music/10470413_20200731153315_1000.jpg"><p>#힙합</p></a></li>
+                    <li id="m_img5"><a onclick="SelectMGenre()"><img src="resources/images/music/10470011_20200731103732_1000.jpg"><p>#인디</p></a></li>
                 </ul>
                 <ul id="b_img">
-                    <li id="b_img1"><a onclick="BookGenre()"><img src="resources/images/book/4310706.jpg"><p>#에세이</p></a></li>
-                    <li id="b_img2"><a onclick="BookGenre()"><img src="resources/images/book/4253337.jpg"><p>#인문</p></a></li>
-                    <li id="b_img3"><a onclick="BookGenre()"><img src="resources/images/book/4223642.jpg"><p>#자기계발</p></a></li>
-                    <li id="b_img4"><a onclick="BookGenre()"><img src="resources/images/book/4352254.jpg"><p>#요리</p></a></li>
-                    <li id="b_img5"><a onclick="BookGenre()"><img src="resources/images/book/4178687.jpg"><p>#건강</p></a></li>
+                    <li id="b_img1"><a onclick="SelectBGenre()"><img src="resources/images/book/4310706.jpg"><p>#에세이</p></a></li>
+                    <li id="b_img2"><a onclick="SelectBGenre()"><img src="resources/images/book/4253337.jpg"><p>#인문</p></a></li>
+                    <li id="b_img3"><a onclick="SelectBGenre()"><img src="resources/images/book/4223642.jpg"><p>#자기계발</p></a></li>
+                    <li id="b_img4"><a onclick="SelectBGenre()"><img src="resources/images/book/4352254.jpg"><p>#요리</p></a></li>
+                    <li id="b_img5"><a onclick="SelectBGenre()"><img src="resources/images/book/4178687.jpg"><p>#건강</p></a></li>
                 </ul>
             </div>
             <div id="content_book">
@@ -53,11 +53,11 @@
                 <div id="book_keyword_info">
                     <p><b>도서</b>많이 찾는 키워드<hr width="260px"></p>
                     <ul id="keyword_list">
-                        <li>#<a onclick="BookGenre()">스릴러</a></li>
-                        <li>#<a onclick="BookGenre()">코미디</a></li>
-                        <li>#<a onclick="BookGenre()">로맨스</a></li>
-                        <li>#<a onclick="BookGenre()">미스터리</a></li>
-                        <li>#<a onclick="BookGenre()">추리</a></li>
+                        <li>#<a onclick="SelectBGenre()">스릴러</a></li>
+                        <li>#<a onclick="SelectBGenre()">코미디</a></li>
+                        <li>#<a onclick="SelectBGenre()">로맨스</a></li>
+                        <li>#<a onclick="SelectBGenre()">미스터리</a></li>
+                        <li>#<a onclick="SelectBGenre()">추리</a></li>
                     </ul>
                 </div>
             </div>
@@ -86,21 +86,21 @@
                 <div id="music_keyword_info">
                     <p><b>음원</b>많이 찾는 키워드<hr width="260px"></p>
                     <ul id="keyword_list">
-                        <li>#<a onclick="MusicGenre()">댄스</a></li>
-                        <li>#<a onclick="MusicGenre()">락</a></li>
-                        <li>#<a onclick="MusicGenre()">힙합</a></li>
-                        <li>#<a onclick="MusicGenre()">발라드</a></li>
-                        <li>#<a onclick="MusicGenre()">재즈</a></li>
+                        <li>#<a onclick="SelectMGenre()">댄스</a></li>
+                        <li>#<a onclick="SelectMGenre()">락</a></li>
+                        <li>#<a onclick="SelectMGenre()">힙합</a></li>
+                        <li>#<a onclick="SelectMGenre()">발라드</a></li>
+                        <li>#<a onclick="SelectMGenre()">재즈</a></li>
                     </ul>
                 </div>
             </div>
             </div>
         </div>
          <script>
-         	function MusicGenre(){
+         	function SelectMGenre(){
          		location.href="/BOOKTIFULMUSIC/selectMusicOne.do";
          	}
-         	function BookGenre(){
+         	function SelectBGenre(){
          		location.href="/BOOKTIFULMUSIC/selectBookOne.do";
          	}
 			function MusicInfo(){
