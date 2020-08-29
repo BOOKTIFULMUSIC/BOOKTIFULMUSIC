@@ -10,11 +10,11 @@ public class Book implements Serializable{
 	 */
 	private static final long serialVersionUID = -5713784972985715854L;
 	
-	private int bno;
+	private Long bno;
 	private String btitle;
 	private String author;
 	private String publisher;
-	private Date writerDate;
+	private String writerDate;
 	private String bgenre;
 	private int price;
 	private int bLikeCount;
@@ -34,7 +34,7 @@ public class Book implements Serializable{
 	}
 
 
-	public Book(int bno, String btitle, String author, String publisher, String bgenre, int bLikeCount,
+	public Book(Long bno, String btitle, String author, String publisher, String bgenre, int bLikeCount,
 			int bReviewCount, String bImage) {
 		super();
 		this.bno = bno;
@@ -47,7 +47,7 @@ public class Book implements Serializable{
 		this.bImage = bImage;
 	}
 
-	public Book(int bno, String btitle, String author, String publisher, Date writerDate, String bgenre, int price,
+	public Book(Long bno, String btitle, String author, String publisher, String writerDate, String bgenre, int price,
 			int bLikeCount, int bReviewCount, String bImage, String bStory) {
 		super();
 		this.bno = bno;
@@ -63,11 +63,11 @@ public class Book implements Serializable{
 		this.bStory = bStory;
 	}
 
-	public int getBno() {
+	public Long getBno() {
 		return bno;
 	}
 
-	public void setBno(int bno) {
+	public void setBno(Long bno) {
 		this.bno = bno;
 	}
 
@@ -95,11 +95,11 @@ public class Book implements Serializable{
 		this.publisher = publisher;
 	}
 
-	public Date getWriterDate() {
+	public String getWriterDate() {
 		return writerDate;
 	}
 
-	public void setWriterDate(Date writerDate) {
+	public void setWriterDate(String writerDate) {
 		this.writerDate = writerDate;
 	}
 

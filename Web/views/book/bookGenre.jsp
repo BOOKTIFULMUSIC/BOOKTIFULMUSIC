@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.web.jsp.Member.model.vo.*" import="com.web.jsp.book.model.vo.*"%>
-<% Book b = (Book)session.getAttribute("book"); %>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.web.jsp.book.model.vo.PageInfo"%>
+<% ArrayList<Book> list = (ArrayList<Book>)request.getAttribute("list"); 
+PageInfo pi = (PageInfo)request.getAttribute("pi");
+int listCount = pi.getListCount();
+int currentPage = pi.getCurrentPage();
+int maxPage = pi.getMaxPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage(); %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>BookGenre</title>
+	<title>BOOKTIFULMUSIC</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/book_genre.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -130,150 +138,56 @@
                 </script>
 
                 <div id="imgbox">
-                    <table>
-                        <colgroup>
-                            <col style='width: 20%'>
-                            <col style='width: 20%'>
-                            <col style='width: 20%'>
-                            <col style='width: 20%'>
-                        </colgroup>
-                        <tr>
-                            <td><a onclick="BookInfo()">
-                                    <img name="img" src="${pageContext.request.contextPath}/<% b.getbImage(); %>">
+                    <ul id="listOne">
+                         <% for(Book b : list) { %>
+                            <li><a onclick="BookInfo()">
+                                    <img name="img" src="${pageContext.request.contextPath}/resources/images/book/<%= b.getbImage() %>">
                                     <span>
-                                        <p name="title" style="color: black;"><% b.getBtitle();%></p>
-                                        <h6 name="author" style="color: #757575;">
-                                            <% b.getAuthor(); %>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <b class="fas fa-heart">♥</b><p name="like"><% b.getbLikeCount(); %></p>
-                                        </h6>
-                                    </span>
+                                        <p id="title" name="title" style="color: black;"><%= b.getBtitle()%></p>
+                                    	<p id="author_like" name="author" style="color: #757575;">
+                                        <b><%= b.getAuthor() %></b>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                        <b class="fas fa-heart">♥</b><%= b.getbLikeCount() %></p>
+                                    </span>	
                             	</a>
-                            </td>
-                            <td><a onclick="BookInfo()">
-                                    <img name="img" src="${pageContext.request.contextPath}/<% b.getbImage(); %>">
-                                    <span>
-                                        <p name="title" style="color: black;"><% b.getBtitle();%></p>
-                                        <h6 name="author" style="color: #757575;">
-                                            <% b.getAuthor(); %>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <b class="fas fa-heart">♥</b><p name="like"><% b.getbLikeCount(); %></p>
-                                        </h6>
-                                    </span>
-                            	</a>
-                            </td>
-                            <td><a onclick="BookInfo()">
-                                    <img name="img" src="${pageContext.request.contextPath}/<% b.getbImage(); %>">
-                                    <span>
-                                        <p name="title" style="color: black;"><% b.getBtitle();%></p>
-                                        <h6 name="author" style="color: #757575;">
-                                            <% b.getAuthor(); %>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <b class="fas fa-heart">♥</b><p name="like"><% b.getbLikeCount(); %></p>
-                                        </h6>
-                                    </span>
-                            	</a>
-                            </td>
-                            <td><a onclick="BookInfo()">
-                                    <img name="img" src="${pageContext.request.contextPath}/<% b.getbImage(); %>">
-                                    <span>
-                                        <p name="title" style="color: black;"><% b.getBtitle();%></p>
-                                        <h6 name="author" style="color: #757575;">
-                                            <% b.getAuthor(); %>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <b class="fas fa-heart">♥</b><p name="like"><% b.getbLikeCount(); %></p>
-                                        </h6>
-                                    </span>
-                            	</a>
-                            </td>
-                            <td><a onclick="BookInfo()">
-                                    <img name="img" src="${pageContext.request.contextPath}/<% b.getbImage(); %>">
-                                    <span>
-                                        <p name="title" style="color: black;"><% b.getBtitle();%></p>
-                                        <h6 name="author" style="color: #757575;">
-                                            <% b.getAuthor(); %>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <b class="fas fa-heart">♥</b><p name="like"><% b.getbLikeCount(); %></p>
-                                        </h6>
-                                    </span>
-                            	</a>
-                            </td>
-                            <td><a onclick="BookInfo()">
-                                    <img name="img" src="${pageContext.request.contextPath}/<% b.getbImage(); %>">
-                                    <span>
-                                        <p name="title" style="color: black;"><% b.getBtitle();%></p>
-                                        <h6 name="author" style="color: #757575;">
-                                            <% b.getAuthor(); %>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <b class="fas fa-heart">♥</b><p name="like"><% b.getbLikeCount(); %></p>
-                                        </h6>
-                                    </span>
-                            	</a>
-                            </td>
-                            <td><a onclick="BookInfo()">
-                                    <img name="img" src="${pageContext.request.contextPath}/<% b.getbImage(); %>">
-                                    <span>
-                                        <p name="title" style="color: black;"><% b.getBtitle();%></p>
-                                        <h6 name="author" style="color: #757575;">
-                                            <% b.getAuthor(); %>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <b class="fas fa-heart">♥</b><p name="like"><% b.getbLikeCount(); %></p>
-                                        </h6>
-                                    </span>
-                            	</a>
-                            </td>
-                            <td><a onclick="BookInfo()">
-                                    <img name="img" src="${pageContext.request.contextPath}/<% b.getbImage(); %>">
-                                    <span>
-                                        <p name="title" style="color: black;"><% b.getBtitle();%></p>
-                                        <h6 name="author" style="color: #757575;">
-                                            <% b.getAuthor(); %>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <b class="fas fa-heart">♥</b><p name="like"><% b.getbLikeCount(); %></p>
-                                        </h6>
-                                    </span>
-                            	</a>
-                            </td>
-                            <td><a onclick="BookInfo()">
-                                    <img name="img" src="${pageContext.request.contextPath}/<% b.getbImage(); %>">
-                                    <span>
-                                        <p name="title" style="color: black;"><% b.getBtitle();%></p>
-                                        <h6 name="author" style="color: #757575;">
-                                            <% b.getAuthor(); %>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <b class="fas fa-heart">♥</b><p name="like"><% b.getbLikeCount(); %></p>
-                                        </h6>
-                                    </span>
-                            	</a>
-                            </td>
-                            <td><a onclick="BookInfo()">
-                                    <img name="img" src="${pageContext.request.contextPath}/<% b.getbImage(); %>">
-                                    <span>
-                                        <p name="title" style="color: black;"><% b.getBtitle();%></p>
-                                        <h6 name="author" style="color: #757575;">
-                                            <% b.getAuthor(); %>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <b class="fas fa-heart">♥</b><p name="like"><% b.getbLikeCount(); %></p>
-                                        </h6>
-                                    </span>
-                            	</a>
-                            </td>
-                            <td><a onclick="BookInfo()">
-                                    <img name="img" src="${pageContext.request.contextPath}/<% b.getbImage(); %>">
-                                    <span>
-                                        <p name="title" style="color: black;"><% b.getBtitle();%></p>
-                                        <h6 name="author" style="color: #757575;">
-                                            <% b.getAuthor(); %>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <b class="fas fa-heart">♥</b><p name="like"><% b.getbLikeCount(); %></p>
-                                        </h6>
-                                    </span>
-                            	</a>
-                            </td>
-                            <td><a onclick="BookInfo()">
-                                    <img name="img" src="${pageContext.request.contextPath}/<% b.getbImage(); %>">
-                                    <span>
-                                        <p name="title" style="color: black;"><% b.getBtitle();%></p>
-                                        <h6 name="author" style="color: #757575;">
-                                            <% b.getAuthor(); %>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <b class="fas fa-heart">♥</b><p name="like"><% b.getbLikeCount(); %></p>
-                                        </h6>
-                                    </span>
-                            	</a>
-                            </td>
-                        </tr>
-                    </table>
+                            </li>
+                        <% } %>
+                    </ul>
                 </div>
             </div>
+        </div>
+        <div id="total">
+             <div id="numberList">
+					<%  if(currentPage <= 1){  %>
+					<button disabled><</button>
+					<%  }else{ %>
+					<button onclick="location.href='<%= request.getContextPath() %>/bGenreList?currentPage=<%=currentPage-1 %>'"><</button>
+					<%  } %>
+					
+					<% for(int p = startPage; p <= endPage; p++){
+							if(p == currentPage){	
+					%>
+						<button disabled><%= p %></button>
+					<%      }else{ %>
+						<button onclick="location.href='<%= request.getContextPath() %>/bGenreList?currentPage=<%= p %>'"><%= p %></button>
+					<%      } %>
+					<% } %>
+						
+					<%  if(currentPage >= maxPage){  %>
+					<button disabled>></button>
+					<%  }else{ %>
+					<button onclick="location.href='<%= request.getContextPath() %>/bGenreList?currentPage=<%=currentPage + 1 %>'">></button>
+					<%  } %>
+					<button onclick="location.href='<%= request.getContextPath() %>/bGenreList?currentPage=<%= maxPage %>'">>></button>
+             </div>
+
+             <div id="musicLike_search">
+                 <select class="search_tool">
+                     <option value="제목순">제목순</option>
+                     <option value="별점순">별점순</option>
+                     <option value="판매순">판매순</option>
+                 </select> <input class="searchinput" type="search" placeholder="검색어를 입력해주세요">
+                 <input class="search_tool" type="button" value="검색">
+             </div>
         </div>
         <script>
         	function BookInfo(){
