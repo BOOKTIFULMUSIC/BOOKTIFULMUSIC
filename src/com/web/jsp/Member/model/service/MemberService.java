@@ -12,6 +12,7 @@ import com.web.jsp.Member.exception.MemberException;
 import com.web.jsp.Member.model.dao.MemberDao;
 import com.web.jsp.Member.model.vo.Member;
 import com.web.jsp.Member.model.vo.PopListB;
+import com.web.jsp.Member.model.vo.PopListM;
 
 public class MemberService {
 	private Connection con;
@@ -53,6 +54,15 @@ public class MemberService {
 		
 		
 		return pb;
+	}
+
+	public ArrayList<PopListM> selectMusic(String id) {
+
+		con = getConnection();
+		ArrayList<PopListM> pm = mDao.selectListM(con,id);
+		close(con);
+		
+		return pm;
 	}
 
 }

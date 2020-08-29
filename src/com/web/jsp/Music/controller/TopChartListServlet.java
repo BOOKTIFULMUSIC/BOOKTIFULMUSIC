@@ -1,4 +1,4 @@
-package com.web.jsp.Member.model.controller;
+package com.web.jsp.Music.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,24 +8,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.web.jsp.Member.model.service.MemberService;
-import com.web.jsp.Member.model.vo.Member;
-import com.web.jsp.Member.model.vo.PopListB;
-import com.web.jsp.Member.model.vo.PopListM;
+import com.web.jsp.Music.model.service.MusicService;
+import com.web.jsp.Music.model.vo.Music;
 
 /**
- * Servlet implementation class PopSelectIn
+ * Servlet implementation class MusicChart
  */
-@WebServlet("/mSelectGenre.me")
-public class SelectGenre extends HttpServlet {
+@WebServlet("/mTop100.mo")
+public class TopChartListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectGenre() {
+    public TopChartListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +31,21 @@ public class SelectGenre extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ArrayList<Music> list = new ArrayList<>();
+		MusicService ms = new MusicService();
 		
-		String id = request.getParameter("userId");
-		MemberService ms = new MemberService();
+		list = ms.musicChart();
 		
-		ArrayList<PopListB> pb = ms.selectBook(id);
-		ArrayList<PopListM> pm = ms.selectMusic(id);
+		String page = "";
 		
-		System.out.println(pb);
-		System.out.println(pm);
-		System.out.println(pb.get(1).getPop_list_B());
-		request.setAttribute("popListB", pb);
-		request.setAttribute("popListM", pm);
-		request.getRequestDispatcher("views/member/pop_genre_select.jsp").forward(request, response);
-		
-		
+		if(list != null) {
+			page = "views/music/topChart.jsp";
+			request.setAttribute("list" , list);
+		}else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("mag", "음원차트 불러오기를 실패했습니다");
+		}
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

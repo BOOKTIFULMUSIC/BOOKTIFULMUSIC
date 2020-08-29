@@ -10,7 +10,7 @@
 <body>
 	<div class="footer">
             <ul id="footnav">
-                <li><a onclick="goNotice()"> 공지사항</a>|</li>
+                <li><a onclick="goNotice()">공지사항</a>|</li>
                 <li><a onclick="goClause()">이용약관</a>|</li>
                 <li><a>개인정보처리방침</a>|</li>
                 <li><a>운영정책</a></li>
@@ -21,7 +21,7 @@
     </div>
     <script>
     	function goNotice(){
-    		location.href="/BOOKTIFULMUSIC/nSelectList.no";
+    		location.href="<%=request.getContextPath()%>/nSelectList.no?ntype=N"; 
 		}
     	function goClause(){
 			location.href="/BOOKTIFULMUSIC/clausePage.jsp";
