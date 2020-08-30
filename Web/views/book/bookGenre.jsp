@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.web.jsp.Member.model.vo.*" import="com.web.jsp.book.model.vo.*"%>
-<%@page import="java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="com.web.jsp.Member.model.vo.*" import="com.web.jsp.book.model.vo.*" import="java.util.*" %>
+
+
 <%@page import="com.web.jsp.book.model.vo.PageInfo"%>
 <% ArrayList<Book> list = (ArrayList<Book>)request.getAttribute("list");
 ArrayList<Book> ubList = (ArrayList<Book>)request.getAttribute("ubList");

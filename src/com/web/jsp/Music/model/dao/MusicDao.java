@@ -43,7 +43,7 @@ public class MusicDao {
 			
 			list = new ArrayList<Music>();
 			
-			if(rset.next()) {
+			while(rset.next()) {
 				Music m = new Music();
 				
 				m.setMusicNo(rset.getInt(1));
