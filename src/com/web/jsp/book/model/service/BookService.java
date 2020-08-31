@@ -1,5 +1,6 @@
 package com.web.jsp.book.model.service;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -36,9 +37,9 @@ public class BookService {
 		return ubList;
 	}
 
-	public ArrayList<Book> searchGenre(String genre,int currentPage, int limit) {
+	public ArrayList<Book> searchGenre(String[] gArr,int currentPage, int limit) {
 		con = getConnection();
-		ArrayList<Book> sList = bDao.searchGenre(con,genre,currentPage,limit);
+		ArrayList<Book> sList = bDao.searchGenre(con,gArr,currentPage,limit);
 		close(con);
 		return sList;
 	}

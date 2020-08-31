@@ -7,6 +7,8 @@
 ArrayList<Book> ubList = (ArrayList<Book>)request.getAttribute("ubList");
 ArrayList<Book> sList = (ArrayList<Book>)request.getAttribute("sList");
 
+String[] genre = request.getParameterValues("keyword");
+
 PageInfo pi = (PageInfo)request.getAttribute("pi");
 int listCount = pi.getListCount();
 int currentPage = pi.getCurrentPage();
@@ -96,8 +98,13 @@ int endPage = pi.getEndPage(); %>
 	                function BookReview(){
 	        			location.href="/BOOKTIFULMUSIC/bReviewList.bo";
 	        		}
+	                
 	                function searchGenre(){
-	                	location.href="/BOOKTIFULMUSIC/bSearchGenre.bo";
+	                	var gArr = "";
+	                	var genre=$('input[name=keyword]').each(function(){
+							gArr += $(this).val()+",";
+	                	});
+						location.href="/BOOKTIFULMUSIC/bSearchGenre.bo?keyword="+gArr;
 	                }
                     $(function(){
                         var a = document.getElementsByClassName('check_list');
@@ -120,7 +127,7 @@ int endPage = pi.getEndPage(); %>
                             }
                             result.sort;
                             for(j=0;j<result.length;j++){
-                                b.innerHTML += "<li><div id='keyword' name='keyword'>" + result[j] + "</div></li>";
+                                b.innerHTML += "<li><input type='button' id='keyword' name='keyword' value=" + result[j] + " style='border:0; background:none;' disable></li>";
                                
                             }
                         });
@@ -160,8 +167,8 @@ int endPage = pi.getEndPage(); %>
                             	</a>
                             </li>
                         <% } %>
-                        <% } else { %>
-                        	<% for(Book b : list) { %>
+                        <% } else if( sList != null) { %>
+                        	<% for(Book b : sList) { %>
                             <li><a onclick="BookInfo()">
                                     <img name="img" src="${pageContext.request.contextPath}/resources/images/book/<%= b.getbImage() %>">
                                     <span>
@@ -173,6 +180,19 @@ int endPage = pi.getEndPage(); %>
                             	</a>
                             </li>
                         	<% } %>
+                        <% } else { %>
+                           <% for (Book b : list) { %>
+                           		<li><a onclick="BookInfo()">
+                                    <img name="img" src="${pageContext.request.contextPath}/resources/images/book/<%= b.getbImage() %>">
+                                    <span>
+                                        <p id="title" name="title" style="color: black;"><%= b.getBtitle()%></p>
+                                    	<p id="author_like" name="author" style="color: #757575;">
+                                        <b><%= b.getAuthor() %></b>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                        <b class="fas fa-heart">♥</b><%= b.getbLikeCount() %></p>
+                                    </span>	
+                            	</a>
+                            </li>
+                           <% } %>
                         <% } %>
                     </ul>
                 </div>
