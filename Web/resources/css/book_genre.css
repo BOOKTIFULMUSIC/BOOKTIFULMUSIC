@@ -124,10 +124,7 @@ body{margin:0;}
 	background: rgb(227, 233, 255);
 	
 }
-#selected_genre li #keyword{
-	border:0;
-	background:rgb(227,233,255);
-}
+
 #selected_genre #searchbtn{	
 	float: right;
 }
