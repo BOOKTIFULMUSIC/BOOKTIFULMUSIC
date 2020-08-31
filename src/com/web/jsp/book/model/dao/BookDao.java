@@ -134,5 +134,47 @@ public class BookDao {
 		}
 		return ubList;
 	}
+	public ArrayList<Book> searchGenre(Connection con, String genre,int currentPage, int limit) {
+		ArrayList<Book> sList = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("searchGenre");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			int startRow = (currentPage-1)*limit +1; // 3-1*10 21
+			int endRow = startRow + limit -1; // 30
+			pstmt.setString(1, genre);
+			pstmt.setInt(2, endRow);
+			pstmt.setInt(3, startRow);
+			rset = pstmt.executeQuery();
+			
+			sList = new ArrayList<Book>();
+			
+			while(rset.next()) {
+				Book bo = new Book();
+				bo.setBno(rset.getLong("BNO"));
+				bo.setBtitle(rset.getString("BTITLE"));
+				bo.setAuthor(rset.getString("PUBLISHER"));
+				bo.setWriterDate(rset.getString("WRITERDATE"));
+				bo.setBgenre(rset.getString("BGENRE"));
+				bo.setPrice(rset.getInt("PRICE"));
+				bo.setbLikeCount(rset.getInt("BLIKECOUNT"));
+				bo.setbReviewCount(rset.getInt("BREVIEWCOUNT"));
+				bo.setbImage(rset.getString("BIMAGE"));
+				bo.setbStory(rset.getString("BSTORY"));
+			
+				sList.add(bo);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sList;
+	}
 
 }
