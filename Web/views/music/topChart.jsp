@@ -54,7 +54,7 @@
                     <td><a href="리뷰창"><%= mu.getReviewAlbum() %></a></td>
                     <td><label onclick="streaming(this);"><%= '▶' %></label></td>
                 </tr>
-     			<%  }%>
+     			<% } %>
                 <% } %>
                 
                 
