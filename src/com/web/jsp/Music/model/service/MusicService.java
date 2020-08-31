@@ -22,5 +22,27 @@ public class MusicService {
 		close(con);
 		return list;
 	}
+	
+	public int getListCount() {
+		con = getConnection();
+		int listCount = mDao.getListCount(con);
+		close(con);
+		return listCount;
+	}
 
+	public ArrayList<Music> selectList( int currentPage, int limit) {
+		con = getConnection();
+		
+		ArrayList<Music> list = mDao.selectList(con,currentPage,limit);
+		close(con);
+		return list;
+	}
+
+	public ArrayList<Music> userGenre(String userId, int currentPage, int limit) {
+		con = getConnection();
+		
+		ArrayList<Music> umList = mDao.userGenre(con,userId,currentPage,limit);
+		close(con);
+		return umList;
+	}
 }

@@ -5,6 +5,7 @@ import static com.web.jsp.common.JDBCTemplate.close;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -71,5 +72,107 @@ public class MusicDao {
 		
 		return list;
 	}
-
+	public int getListCount(Connection con) {
+		int listCount = 0;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("listCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return listCount;
+	}
+	public ArrayList<Music> selectList(Connection con, int currentPage, int limit) {
+		ArrayList<Music> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectGenreList");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			int startRow = (currentPage-1)*limit +1; // 3-1*10 21
+			int endRow = startRow + limit -1; // 30
+			pstmt.setInt(1, endRow);
+			pstmt.setInt(2, startRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Music>();
+			
+			while(rset.next()) {
+				Music m = new Music();
+				
+				m.setMusicNo(rset.getInt(1));
+				m.setMusicNm(rset.getString("music_Nm"));
+				m.setMusicArtist(rset.getString("music_Artist"));
+				m.setMusicGenre(rset.getString("music_Genre"));
+				m.setRelativeAlbumNo(rset.getString("relative_Album_No"));
+				m.setLikeMusic(rset.getString("like_Music"));
+				m.setMusicImage(rset.getString("music_Image"));
+				m.setMusicType(rset.getString("music_Type"));
+			
+				list.add(m);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	public ArrayList<Music> userGenre(Connection con, String userId, int currentPage, int limit) {
+		ArrayList<Music> umList = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("userGenreList");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			int startRow = (currentPage-1)*limit +1; // 3-1*10 21
+			int endRow = startRow + limit -1; // 30
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, endRow);
+			pstmt.setInt(3, startRow);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			umList = new ArrayList<Music>();
+			
+			while(rset.next()) {
+				Music m = new Music();
+				m.setMusicNo(rset.getInt(1));
+				m.setMusicNm(rset.getString("music_Nm"));
+				m.setMusicArtist(rset.getString("music_Artist"));
+				m.setMusicGenre(rset.getString("music_Genre"));
+				m.setRelativeAlbumNo(rset.getString("relative_Album_No"));
+				m.setLikeMusic(rset.getString("like_Music"));
+				m.setMusicImage(rset.getString("music_Image"));
+				m.setMusicType(rset.getString("music_Type"));
+			
+				umList.add(m);
+			}
+			System.out.println("Dao"+umList);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return umList;
+	}
 }

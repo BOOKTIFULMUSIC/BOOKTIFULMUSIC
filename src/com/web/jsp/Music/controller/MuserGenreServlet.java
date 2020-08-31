@@ -1,7 +1,6 @@
-package com.web.jsp.book.controller;
+package com.web.jsp.Music.controller;
 
 import java.io.IOException;
-import java.sql.Array;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -10,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.jsp.book.model.service.BookService;
-import com.web.jsp.book.model.vo.Book;
+import com.web.jsp.Music.model.service.MusicService;
+import com.web.jsp.Music.model.vo.Music;
 import com.web.jsp.book.model.vo.PageInfo;
 
 /**
- * Servlet implementation class SearchGenreServlet
+ * Servlet implementation class MuserGenreServlet
  */
-@WebServlet("/bSearchGenre.bo")
-public class SearchGenreServlet extends HttpServlet {
+@WebServlet("/mUserGenre.bo")
+public class MuserGenreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchGenreServlet() {
+    public MuserGenreServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,19 +32,10 @@ public class SearchGenreServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userId = request.getParameter("userId");
+		System.out.println(userId);
 		
-		String genre = request.getParameter("keyword");
-
-		String gArr[] = genre.split(",");
-		
-		for(int i=0; i<gArr.length; i++) {
-			System.out.println(gArr[i]);
-		}
-		System.out.println(gArr.length);
-		
-		ArrayList<Book> sList = new ArrayList<>();
-		
-		BookService bs = new BookService();
+		MusicService ms = new MusicService();
 		
 		int startPage;
 		int endPage;
@@ -58,7 +48,7 @@ public class SearchGenreServlet extends HttpServlet {
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		int listCount = bs.getListCount();
+		int listCount = ms.getListCount();
 		
 		maxPage = (int)((double)listCount/limit+1);
 		startPage = ((int)((double)currentPage/limit+1)-1)*limit+1;
@@ -67,24 +57,25 @@ public class SearchGenreServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		sList = bs.searchGenre(gArr,currentPage,limit);
+		ArrayList<Music> umList = ms.userGenre(userId,currentPage,limit);
 		
-		System.out.println("최종 :" + sList);
+
+		System.out.println(umList);
+		
 		
 		String page = "";
-		if(sList != null) {
-			page = "views/book/bookGenre.jsp";
-			request.setAttribute("sList", sList);
+		if(umList != null) {
+			page = "views/Music/musicGenre.jsp";
+			request.setAttribute("umList", umList);
 			endPage = startPage+limit-1;
 			PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
 			request.setAttribute("pi", pi);
 		}else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "장르 검색에 실패하였습니다.");
+			request.setAttribute("msg", "회원님이 선택한 장르 리스트 조회에 실패하였습니다.");
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
-		
 	}
 
 	/**
