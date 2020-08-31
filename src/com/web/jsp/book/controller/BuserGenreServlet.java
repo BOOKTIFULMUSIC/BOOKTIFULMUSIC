@@ -51,8 +51,8 @@ public class BuserGenreServlet extends HttpServlet {
 		}
 		int listCount = bs.getListCount();
 		
-		maxPage = (int)((double)listCount/limit+0.9);
-		startPage = ((int)((double)currentPage/limit+0.9)-1)*limit+1;
+		maxPage = (int)((double)listCount/limit+1);
+		startPage = ((int)((double)currentPage/limit+1)-1)*limit+1;
 		endPage = startPage + limit -1;
 		if(endPage > maxPage) {
 			endPage = maxPage;

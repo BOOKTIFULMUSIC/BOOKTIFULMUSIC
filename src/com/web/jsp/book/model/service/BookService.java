@@ -36,5 +36,12 @@ public class BookService {
 		return ubList;
 	}
 
+	public ArrayList<Book> searchGenre(String genre,int currentPage, int limit) {
+		con = getConnection();
+		ArrayList<Book> sList = bDao.searchGenre(con,genre,currentPage,limit);
+		close(con);
+		return sList;
+	}
+
 	
 }
