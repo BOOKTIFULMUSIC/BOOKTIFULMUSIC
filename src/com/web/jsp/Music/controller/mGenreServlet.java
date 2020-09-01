@@ -33,47 +33,48 @@ public class mGenreServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 검색 list
-				ArrayList<Music> list = null;
-				MusicService ms = new MusicService();
-				
-				int startPage;
-				int endPage;
-				int maxPage;
-				int currentPage;
-				int limit;
-				currentPage = 1;
-				limit = 12;
-				
-				if(request.getParameter("currentPage") != null) {
-					currentPage = Integer.parseInt(request.getParameter("currentPage"));
-				}
-				
-				int listCount = ms.getListCount();
-				
-				maxPage = (int)((double)listCount/limit+1);
-				
-				startPage = ((int)((double)currentPage/limit+1)-1)*limit+1;
-				
-				endPage = startPage + limit -1;
-				if(endPage > maxPage) {
-					endPage = maxPage;
-				}
-				
-				list = ms.selectList(currentPage,limit);
-				
-				String page="";
-				if(list!=null) {
-					page = "views/music/musicGenre.jsp";
-					request.setAttribute("list", list);
-					
-					endPage = startPage+limit-1;
-					PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
-					request.setAttribute("pi", pi);
-				} else {
-					page = "views/common/errorPage.jsp";
-					request.setAttribute("msg", "음악 장르 목록 조회에 실패하였습니다.");
-				}
-				request.getRequestDispatcher(page).forward(request, response);
+		ArrayList<Music> list = null;
+		MusicService ms = new MusicService();
+		
+		int startPage;
+		int endPage;
+		int maxPage;
+		int currentPage;
+		int limit;
+		int buttonCount =5;
+		currentPage = 1;
+		limit = 12;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = ms.getListCount();
+		
+		maxPage = (int)((double)listCount/limit+1);
+		
+		startPage = ((int)((double)currentPage/buttonCount+1)-1)*buttonCount+1;
+		
+		endPage = startPage + buttonCount -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		list = ms.selectList(currentPage,limit);
+		
+		String page="";
+		if(list!=null) {
+			page = "views/music/musicGenre.jsp";
+			request.setAttribute("list", list);
+			
+			endPage = startPage+buttonCount-1;
+			PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage,buttonCount);
+			request.setAttribute("pi", pi);
+		} else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "음악 장르 목록 조회에 실패하였습니다.");
+		}
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

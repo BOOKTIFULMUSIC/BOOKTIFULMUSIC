@@ -216,8 +216,15 @@ body{margin:0;}
 /*검색+페이지이동*/
 #total {
 	margin: auto;
-	margin-top: 80px;
+	margin-top: 120px;
 	height: 100px;
+}
+
+/*페이지 이동*/
+#total{
+	margin: auto;
+	height: 100px;
+	
 }
 
 /*페이지 이동*/
@@ -226,9 +233,11 @@ body{margin:0;}
 	height: 30px;
 	margin: auto;
 }
+
 button{
 	border:0;
 	background:white;
+	font-weight:800;
 }
 
 /*검색바*/

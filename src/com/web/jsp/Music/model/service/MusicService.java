@@ -45,4 +45,18 @@ public class MusicService {
 		close(con);
 		return umList;
 	}
+	
+	public int getSearchListCount(String[] gArr) {
+		con = getConnection();
+		int SearchlistCount = mDao.getSearchListCount(con,gArr);
+		close(con);
+		return SearchlistCount;
+	}
+
+	public ArrayList<Music> searchGenre(String[] gArr, int currentPage, int limit) {
+		con = getConnection();
+		ArrayList<Music> sList = mDao.searchGenre(con,gArr,currentPage,limit);
+		close(con);
+		return sList;
+	}
 }

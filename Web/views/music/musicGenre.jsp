@@ -7,7 +7,7 @@
 ArrayList<Music> umList = (ArrayList<Music>)request.getAttribute("umList");
 ArrayList<Music> sList = (ArrayList<Music>)request.getAttribute("sList");
 
-String[] genre = request.getParameterValues("keyword");
+String genre = (String)request.getAttribute("genre");
 
 PageInfo pi = (PageInfo)request.getAttribute("pi");
 int listCount = pi.getListCount();
@@ -84,7 +84,7 @@ int endPage = pi.getEndPage(); %>
                             <li>gg</li> -->
                         </ul>
                         <div id="searchbtn">
-                        <input type="submit" id="searchkey" name="searchkey" value="검색">
+                        <input type="submit" id="searchkey" name="searchkey" value="검색" onclick="searchGenre()">
                         </div>
                     </div>
                 </div>
@@ -161,7 +161,7 @@ int endPage = pi.getEndPage(); %>
                         	<% if(m != null){ %>
 	                        	<% for(Music mu : umList) { %>
 	                            <li><a onclick="MusicInfo()"> 
-	                            <img src="../resource/music/10465937_20200723150234_1000.jpg">
+	                            <img src="${pageContext.request.contextPath}/resources/images/music/<%=mu.getMusicImage()%>" >
 	                                    <span>
 	                                        <p style="color: black;"><%= mu.getMusicNm() %></p>
 	                                        <p id="Artist" name="Artist" style="color: #757575;">
@@ -174,7 +174,7 @@ int endPage = pi.getEndPage(); %>
                             <% } else if(sList != null) { %>
                             	<% for(Music mu : sList) { %>
 		                            <li><a onclick="MusicInfo()"> 
-		                            <img src="../resource/music/10465937_20200723150234_1000.jpg">
+		                            <img src="${pageContext.request.contextPath}/resources/images/music/<%=mu.getMusicImage()%>">
 		                                    <span>
 		                                        <p style="color: black;"><%= mu.getMusicNm() %></p>
 		                                        <p id="Artist" name="Artist" style="color: #757575;">
@@ -187,9 +187,9 @@ int endPage = pi.getEndPage(); %>
                             <% } else { %>
                             	<% for(Music mu : list) { %>
 		                            <li><a onclick="MusicInfo()"> 
-		                            <img src="../resource/music/10465937_20200723150234_1000.jpg">
+		                            <img src="${pageContext.request.contextPath}/resources/images/music/<%=mu.getMusicImage()%>">
 		                                    <span>
-		                                        <p style="color: black;"><%= mu.getMusicNm() %></p>
+		                                        <p style="color: black;"><%=mu.getMusicNm()%></p>
 		                                        <p id="Artist" name="Artist" style="color: #757575;">
 		                                        <b><%= mu.getMusicArtist() %></b>&nbsp;&nbsp;|&nbsp;&nbsp;
 		                                        <b class="fas fa-heart">♥</b><%= mu.getLikeMusic() %></p>
@@ -204,11 +204,16 @@ int endPage = pi.getEndPage(); %>
                 </div>
              <div id="total" style="margin-bottom:120px;">
              <div id="numberList">
-					<button onclick="location.href='<%= request.getContextPath() %>/bGenreList.bo?currentPage=1'"><<</button>
 					<%  if(currentPage <= 1){  %>
 					<button disabled><</button>
 					<%  }else{ %>
-					<button onclick="location.href='<%= request.getContextPath() %>/bGenreList.bo?currentPage=<%=currentPage - 1 %>'"><</button>
+						<% if( m != null){ %>
+							<button onclick="location.href='<%= request.getContextPath() %>/mUserGenre.mo?currentPage=<%=currentPage - 1 %>'"><</button>
+						<% } else if(sList != null) { %>
+							<button onclick="location.href='<%= request.getContextPath() %>/mSearchGenre.mo?currentPage=<%=currentPage - 1 %>'"><</button>
+						<% } else { %>
+							<button onclick="location.href='<%= request.getContextPath() %>/mGenreList.mo?currentPage=<%=currentPage - 1 %>'"><</button>
+						<% } %>
 					<%  } %>
 					
 					<% for(int p = startPage; p <= endPage; p++){
@@ -216,16 +221,27 @@ int endPage = pi.getEndPage(); %>
 					%>
 						<button disabled><%= p %></button>
 					<%      }else{ %>
-						<button onclick="location.href='<%= request.getContextPath() %>/bGenreList.bo?currentPage=<%= p %>'"><%= p %></button>
+						<% if( m != null){ %>
+							<button onclick="location.href='<%= request.getContextPath() %>/mUserGenre.mo?userId=<%= m.getUserId() %>&currentPage=<%= p %>'"><%=p %></button>
+						<% } else if(sList != null) { %>
+							<button onclick="location.href='<%= request.getContextPath() %>/mSearchGenre.mo?keyword=<%=genre%>&currentPage=<%= p %>'"><%=p %></button>
+						<% } else { %>
+							<button onclick="location.href='<%= request.getContextPath() %>/mGenreList.mo?currentPage=<%= p %>'"><%=p %></button>
+						<% } %>
 					<%      } %>
 					<% } %>
 						
 					<%  if(currentPage >= maxPage){  %>
 					<button disabled>></button>
 					<%  }else{ %>
-					<button onclick="location.href='<%= request.getContextPath() %>/bGenreList.bo?currentPage=<%=currentPage + 1 %>'">></button>
+						<% if( m != null){ %>
+							<button onclick="location.href='<%= request.getContextPath() %>/mUserGenre.mo?currentPage=<%=currentPage + 1 %>'">></button>
+						<% } else if(sList != null) { %>
+							<button onclick="location.href='<%= request.getContextPath() %>/mSearchGenre.mo?currentPage=<%=currentPage + 1 %>'">></button>
+						<% } else { %>
+							<button onclick="location.href='<%= request.getContextPath() %>/mGenreList.mo?currentPage=<%=currentPage + 1 %>'">></button>
+						<%} %>
 					<%  } %>
-					<button onclick="location.href='<%= request.getContextPath() %>/bGenreList.bo?currentPage=<%= maxPage %>'">>></button>		
              </div>
 
              <div id="musicLike_search">

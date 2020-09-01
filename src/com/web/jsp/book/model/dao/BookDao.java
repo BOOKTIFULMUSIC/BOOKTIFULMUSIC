@@ -147,42 +147,70 @@ public class BookDao {
 			pstmt = con.prepareStatement(sql);
 			int startRow = (currentPage-1)*limit +1;
 			int endRow = startRow + limit -1;
-			
-			for(int i = 0; i<gArr.length; i++) {
-					pstmt.setString(1, gArr[i]);
-					pstmt.setInt(2, endRow);
-					pstmt.setInt(3, startRow);
-			
-					rset = pstmt.executeQuery();
+			AllList = new ArrayList<Book>();
+			for(String genre : gArr) {
+				pstmt.setString(1, genre);
+				pstmt.setInt(2, endRow);
+				pstmt.setInt(3, startRow);
+		
+				rset = pstmt.executeQuery();
+				
+				sList = new ArrayList<Book>();
+				
+				while(rset.next()) {
+					Book bo = new Book();
+					bo.setBno(rset.getLong("BNO"));
+					bo.setBtitle(rset.getString("BTITLE"));
+					bo.setAuthor(rset.getString("PUBLISHER"));
+					bo.setWriterDate(rset.getString("WRITERDATE"));
+					bo.setBgenre(rset.getString("BGENRE"));
+					bo.setPrice(rset.getInt("PRICE"));
+					bo.setbLikeCount(rset.getInt("BLIKECOUNT"));
+					bo.setbReviewCount(rset.getInt("BREVIEWCOUNT"));
+					bo.setbImage(rset.getString("BIMAGE"));
+					bo.setbStory(rset.getString("BSTORY"));
+					sList.add(bo);
 					
-					sList = new ArrayList<Book>();
-					AllList = new ArrayList<Book>();
-
-
-					while(rset.next()) {
-						Book bo = new Book();
-						bo.setBno(rset.getLong("BNO"));
-						bo.setBtitle(rset.getString("BTITLE"));
-						bo.setAuthor(rset.getString("PUBLISHER"));
-						bo.setWriterDate(rset.getString("WRITERDATE"));
-						bo.setBgenre(rset.getString("BGENRE"));
-						bo.setPrice(rset.getInt("PRICE"));
-						bo.setbLikeCount(rset.getInt("BLIKECOUNT"));
-						bo.setbReviewCount(rset.getInt("BREVIEWCOUNT"));
-						bo.setbImage(rset.getString("BIMAGE"));
-						bo.setbStory(rset.getString("BSTORY"));
-						AllList.add(bo);
+				}
+					for(int i= 0; i < 1; i++) {
+						AllList.addAll(sList);
+						i = 2;
 					}
-					sList.addAll(AllList);
 			}
-			AllList.addAll(sList);
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(rset);
 			close(pstmt);
 		}
-		return sList;
+		return AllList;
+	}
+	
+	public int getSearchListCount(Connection con,String[] gArr) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("searchGenreList");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			for(String genre : gArr) {
+				pstmt.setString(1, genre);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					result += rset.getInt(1);
+				}
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
 	}
 
 }

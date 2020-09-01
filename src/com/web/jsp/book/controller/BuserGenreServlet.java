@@ -44,6 +44,7 @@ public class BuserGenreServlet extends HttpServlet {
 		int currentPage;
 		int limit;
 		currentPage = 1;
+		int buttonCount = 5;
 		limit = 12;
 		
 		if(request.getParameter("currentPage") != null) {
@@ -52,8 +53,8 @@ public class BuserGenreServlet extends HttpServlet {
 		int listCount = bs.getListCount();
 		
 		maxPage = (int)((double)listCount/limit+1);
-		startPage = ((int)((double)currentPage/limit+1)-1)*limit+1;
-		endPage = startPage + limit -1;
+		startPage = ((int)((double)currentPage/buttonCount+1)-1)*buttonCount+1;
+		endPage = startPage + buttonCount -1;
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
@@ -68,8 +69,8 @@ public class BuserGenreServlet extends HttpServlet {
 		if(ubList != null) {
 			page = "views/book/bookGenre.jsp";
 			request.setAttribute("ubList", ubList);
-			endPage = startPage+limit-1;
-			PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
+			endPage = startPage+buttonCount-1;
+			PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage,buttonCount);
 			request.setAttribute("pi", pi);
 		}else {
 			page = "views/common/errorPage.jsp";
