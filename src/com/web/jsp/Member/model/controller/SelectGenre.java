@@ -41,9 +41,6 @@ public class SelectGenre extends HttpServlet {
 		ArrayList<PopListB> pb = ms.selectBook(id);
 		ArrayList<PopListM> pm = ms.selectMusic(id);
 		
-		System.out.println(pb);
-		System.out.println(pm);
-		System.out.println(pb.get(1).getPop_list_B());
 		request.setAttribute("popListB", pb);
 		request.setAttribute("popListM", pm);
 		request.getRequestDispatcher("views/member/pop_genre_select.jsp").forward(request, response);

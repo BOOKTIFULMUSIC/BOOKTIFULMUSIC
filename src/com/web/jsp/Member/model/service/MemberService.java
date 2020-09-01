@@ -65,4 +65,33 @@ public class MemberService {
 		return pm;
 	}
 
+	public int insertBgenre(String id, String[] bgen) {
+		con = getConnection();
+		
+		int result = mDao.insertBgenre(con, id, bgen);
+		if(result > 0) commit(con);
+		else rollback(con);
+		close(con);
+		return result;
+		
+	}
+
+	public int insertMgenre(String id, String[] mgen) {
+		con = getConnection();
+		
+		int result = mDao.insertMgenre(con, id, mgen);
+		if(result > 0) commit(con);
+		else rollback(con);
+		close(con);
+		return result;
+		
+	}
+
 }
+
+
+
+
+
+
+

@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 /**
  * Servlet implementation class InsertGenre
  */
@@ -27,7 +29,23 @@ public class InsertGenre extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String id = request.getParameter("userId");
+		MemberService ms = new MemberService();
+		String bgenre = request.getParameter("bgenre");
+		String mgenre = request.getParameter("mgenre");
 		
+		String[] bgen = bgenre.split(","); 
+		String[] mgen = mgenre.split(",");
+		
+		try {
+			ms.insertBgenre(id,bgen);
+			ms.insertBgenre(id,mgen);
+			System.out.println("서블릿까지 돌아오기 성공");
+			response.sendRedirect("pop_genre_select.jsp");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
 		
 		
 	}
