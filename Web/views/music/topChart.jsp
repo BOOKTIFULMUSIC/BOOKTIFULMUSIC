@@ -51,14 +51,9 @@
                     <td><label onclick="streaming(this);"><%= '▶' %></label></td>
                 </tr>
                 <% } %>
-                
-                
-               
             </table>
         </div>
-    </div>
-    
-	</div>     
+    </div>    
      <%@ include file="/views/common/footer.jsp" %>
 
 <script>

@@ -198,7 +198,7 @@ int endPage = pi.getEndPage(); %>
                 </div>
             </div>
         </div>
-        <div id="total">
+        <div id="total" style="margin-bottom:120px;">
              <div id="numberList">
 					<button onclick="location.href='<%= request.getContextPath() %>/bGenreList.bo?currentPage=1'"><<</button>
 					<%  if(currentPage <= 1){  %>

@@ -1,6 +1,6 @@
-<%@page import="java.util.ArrayList"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.web.jsp.Member.model.vo.*"%>
+    pageEncoding="UTF-8" import="com.web.jsp.Member.model.vo.*" import="java.util.ArrayList"%>
 <%  Member m = (Member)session.getAttribute("member"); 
 	ArrayList<PopListB> pb = (ArrayList<PopListB>)request.getAttribute("popListB");
 	ArrayList<PopListM> pm = (ArrayList<PopListM>)request.getAttribute("popListM");
