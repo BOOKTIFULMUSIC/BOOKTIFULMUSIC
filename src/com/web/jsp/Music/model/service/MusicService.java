@@ -59,4 +59,15 @@ public class MusicService {
 		close(con);
 		return sList;
 	}
+
+	public Music selectOne(String title) {
+		con = getConnection();
+		
+		Music m = mDao.selectOne(con, title);
+		
+	
+		
+		close(con);
+		return m;
+	}
 }
