@@ -111,9 +111,9 @@
             <li><input type="checkbox" value="종교음악" id="mgenre14" name="mgenre"><label for="mgenre14"># 종교음악</label></li>
             <li><input type="checkbox" value="어린이/태교" id="mgenre15" name="mgenre"><label for="mgenre15"># 어린이/태교</label></li>
         </ul>
-    
+
     </fieldset>
-    <button type="submit" id="btn" onclick="btn();">수정 완료</button>
+    <button type="submit" id="btn" onclick="btn()">수정 완료</button>
     </form>
     
     
@@ -140,23 +140,16 @@
 		
     </div> 
     
+
     
-    <div id="selector3">
-    		<input type="hidden" name="bgenre">
-    </div>
-    
-    <div id="selector4">
-    		<input type="hidden" name="mgenre">
-    </div>
-    
-    
+    <% %>
     
     
     <script>
 	    var all_a = document.getElementsByName('mgenre');
 	    var all_b = document.getElementsByName('bgenre');
-    	var bgenre = "";
-    	var mgenre = "";
+
+
 	    
     	// DB에서 가져오는 부분
 	    $(document).ready(function(){
@@ -170,6 +163,7 @@
         				all_b[j].parentNode.style.background = "rgb(227, 233, 255)";
         			}
         		}
+        	
         	};
 
         	
@@ -198,45 +192,24 @@
                     	all_b[i].parentNode.style.background = "white";
                     }
                 }
+                
+                for (i = 0; i < all_a.length; i++) {
+                    if (all_a[i].checked)  {
+                    	all_a[i].parentNode.style.background = "rgb(227, 233, 255)";
+                    }else {
+                    	all_a[i].parentNode.style.background = "white";
+                    }
+                }
             }); 
     	});
             
     	
     	
+    	// 전송 버튼
 
     	function btn(){
-    		
-    		for(var i=0;i<all_b.length;i++){
-                if(all_b[i].checked){
-                    bgenre=bgenre+all_b[i].value+",";
-                }
-             }
-                
-             for(var i=0;i<all_m.length;i++){
-                if(all_m[i].checked){
-                    mgenre=mgenre+all_m[i].value+",";
-                }
-             }
-            
-             $('#selector3').find('input').val() = bgenre;
-             $('#selector4').find('input').val() = mgenre;
-             
-             
-             $.ajax({
-                url:"/BOOKTIFULMUSIC/popInsert.mo",
-                type:"get",
-                data:{bgenre:$('#selector3').find('input').val(),
-                     mgenre:$('#selector4').find('input').val()   
-                },success:function(result){
-                   console.log("성공");
-                },error:function(){
-                   console.log("실패");
-                }
-             })
-             
-             self.opener = self;
-             window.close();
-             
+    	    $('#pop_select_b').submit();
+          
     	}; 
     	
   	

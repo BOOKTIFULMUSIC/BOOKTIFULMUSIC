@@ -201,14 +201,15 @@ public class MemberDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
-			for(int i=0; i<bgen.length-1; i++) {
+			for(int i=0; i<bgen.length; i++) {
 				bgenre = bgen[i];
 				pstmt2 = con.prepareStatement(sql2);
 				pstmt2.setString(1, id);
 				pstmt2.setString(2, bgenre);
+				result = pstmt2.executeUpdate();
 			}
 			System.out.println("bdao");
-			result = pstmt2.executeUpdate();
+
 
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -235,14 +236,16 @@ public class MemberDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
+			
 			for(int i=0; i<mgen.length-1; i++) {
 				Mgenre = mgen[i];
 				pstmt2 = con.prepareStatement(sql2);
 				pstmt2.setString(1, id);
 				pstmt2.setString(2, Mgenre);
+				result = pstmt2.executeUpdate();
 			}
 			System.out.println("mdao");
-			result = pstmt2.executeUpdate();
+			
 
 		}catch(SQLException e) {
 			e.printStackTrace();
