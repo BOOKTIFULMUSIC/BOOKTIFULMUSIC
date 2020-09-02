@@ -36,7 +36,7 @@ public class InsertGenre extends HttpServlet {
 		MemberService ms = new MemberService();
 		String[] bgenre = request.getParameterValues("bgenre");
 		String[] mgenre = request.getParameterValues("mgenre");
-
+		System.out.println(id);
 
 		for(int i=0; i<bgenre.length;i++) {
 			System.out.println(bgenre[i]);
@@ -46,11 +46,20 @@ public class InsertGenre extends HttpServlet {
 		}
 		
 		
+		try {
+			ms.insertBgenre(id);
+			ms.insertMgenre(id);
+			System.out.println("서블릿까지 돌아오기 성공1");
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		
 		try {
-			ms.insertBgenre(id,bgenre);
-			ms.insertBgenre(id,mgenre);
-			System.out.println("서블릿까지 돌아오기 성공");
+			ms.deleteBgenre(id,bgenre);
+			ms.deleteMgenre(id,mgenre);
+			System.out.println("서블릿까지 돌아오기 성공2");
 			response.setContentType("text/html; charset=euc-kr"); //한글이 인코딩
 			PrintWriter out = response.getWriter(); //선언
 
