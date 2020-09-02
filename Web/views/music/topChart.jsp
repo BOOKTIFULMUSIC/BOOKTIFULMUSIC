@@ -64,7 +64,7 @@
     </div>
     
 </div>     
->>>>>>> refs/remotes/origin/master
+
      <%@ include file="/views/common/footer.jsp" %>
 
 <script>
