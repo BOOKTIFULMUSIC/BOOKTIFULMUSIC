@@ -30,48 +30,48 @@ public class MusicDao {
 	}
 }
 	public ArrayList<Music> musicChart(Connection con) {
-		
-		ArrayList<Music> list = null;
-		Statement stmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("musicChart");
-		
-		try {
-			
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(sql);
-			
-			list = new ArrayList<Music>();
-			
-			if(rset.next()) {
-				Music m = new Music();
-				
-				m.setMusicNo(rset.getInt(1));
-				m.setMusicNm(rset.getString("music_Nm"));
-				m.setMusicArtist(rset.getString("music_Artist"));
-				m.setMusicGenre(rset.getString("music_Genre"));
-				m.setRelativeAlbumNo(rset.getString("relative_Album_No"));
-				m.setLikeMusic(rset.getString("like_Music"));
-				m.setMusicImage(rset.getString("music_Image"));
-				m.setMusicType(rset.getString("music_Type"));
-				
-//				m.setAlbumImage(rset.getString("album_Image"));
-//				m.setReviewAlbum(rset.getString("review_Album"));
-				
-				list.add(m);				
-				
-			}
-			System.out.println(list);
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(stmt);
-		}
-		
-		return list;
-	}
+	      
+	      ArrayList<Music> list = null;
+	      Statement stmt = null;
+	      ResultSet rset = null;
+	      
+	      String sql = prop.getProperty("musicChart");
+	      
+	      try {
+	         
+	         stmt = con.createStatement();
+	         rset = stmt.executeQuery(sql);
+	         
+	         list = new ArrayList<Music>();
+	         
+	         while(rset.next()) {
+	            Music m = new Music();
+	            
+	            m.setMusicNo(rset.getInt(1));
+	            m.setMusicNm(rset.getString("music_Nm"));
+	            m.setMusicArtist(rset.getString("music_Artist"));
+	            m.setMusicGenre(rset.getString("music_Genre"));
+	            m.setRelativeAlbumNo(rset.getString("relative_Album_No"));
+	            m.setLikeMusic(rset.getString("like_Music"));
+	            m.setMusicImage(rset.getString("music_Image"));
+	            m.setMusicType(rset.getString("music_Type"));
+	            
+//	            m.setAlbumImage(rset.getString("album_Image"));
+//	            m.setReviewAlbum(rset.getString("review_Album"));
+	            
+	            list.add(m);            
+	            
+	         }
+	         System.out.println(list);
+	      }catch(SQLException e) {
+	         e.printStackTrace();
+	      }finally {
+	         close(rset);
+	         close(stmt);
+	      }
+	      
+	      return list;
+	   }
 	public int getListCount(Connection con) {
 		int listCount = 0;
 		Statement stmt = null;
