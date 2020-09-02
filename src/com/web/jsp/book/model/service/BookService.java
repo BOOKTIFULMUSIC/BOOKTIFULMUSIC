@@ -51,4 +51,12 @@ public class BookService {
 		return SearchlistCount;
 	}
 
+	public ArrayList<Book> LikeList(int currentPage, int limit) {
+con = getConnection();
+		
+		ArrayList<Book> list = bDao.LikeList(con,currentPage,limit);
+		close(con);
+		return list;
+	}
+
 }
