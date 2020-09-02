@@ -1,5 +1,7 @@
+<%@page import="com.web.jsp.Member.model.vo.Basket"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.web.jsp.Member.model.vo.*"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -20,9 +22,9 @@
 			<div id="sub_menu">
 				<ul>
 					<li><a href="../member/MyPage1.jsp">나의정보</a></li>
-					<li><a href="../member/MyPage2.jsp">장바구니</a></li>
-					<li>| <a href="../member/MyPage3.jsp">구매목록</a></li>
-					<li>| <a href="../member/MyPage4.jsp">이용권구매</a></li>
+					<li id="book_basket"><a href="../member/MyPage2.jsp">장바구니</a></li>
+					<li><a href="../member/MyPage3.jsp">구매목록</a></li>
+					<li><a href="../member/MyPage4.jsp">이용권구매</a></li>
 				</ul>
 			</div>
 
@@ -30,9 +32,9 @@
 
 			<div id="con1">
 				<div class="user_info">
-					<img src="../resources/images/icon/ICON.png" id="photo">
+					<img src="../../resources/images/icon/ICON.png" id="photo">
 					<ul id="circle_ul">
-						<li>아이디&nbsp;&nbsp;:&nbsp;&nbsp;<%= m.getUserId() %></li>
+						<li id="userId">아이디&nbsp;&nbsp;:&nbsp;&nbsp;<%= m.getUserId() %></li>
 						<li>이&nbsp;&nbsp;&nbsp;름&nbsp;&nbsp;:&nbsp;&nbsp;<%= m.getUserName() %></li>
 						<li>이메일&nbsp;&nbsp;:&nbsp;&nbsp;<%= m.getEmail() %></li>
 					</ul>
@@ -68,7 +70,7 @@
 									<ul id="detail">
 										<li><input type="checkbox" id="b1"></li>
 										<li><a href="#"><img
-												src="../resource/images/book/4178687.jpg"><br>
+												src="../../resources/images/book/4178687.jpg"><br>
 											<p>제목제목제목</p></a></li>
 										<li>19,000</li>
 										<li><input type="number" min="1" max="999" value="1"></li>
@@ -79,7 +81,7 @@
 									<ul id="detail">
 										<li><input type="checkbox" id="b1"></li>
 										<li><a href="#"><img
-												src="../resource/images/book/4178687.jpg"><br>
+												src="../../resources/images/book/4178687.jpg"><br>
 											<p>제목제목제목</p></a></li>
 										<li>19,000</li>
 										<li><input type="number" min="1" max="999" value="1"></li>
@@ -90,7 +92,7 @@
 									<ul id="detail">
 										<li><input type="checkbox" id="b1"></li>
 										<li><a href="#"><img
-												src="../resource/images/book/4178687.jpg"><br>
+												src="../../resources/images/book/4178687.jpg"><br>
 											<p>제목제목제목</p></a></li>
 										<li>19,000</li>
 										<li><input type="number" min="1" max="999" value="1"></li>
@@ -101,7 +103,7 @@
 									<ul id="detail">
 										<li><input type="checkbox" id="b1"></li>
 										<li><a href="#"><img
-												src="../resource/images/book/4178687.jpg"><br>
+												src="../../resources/images/book/4178687.jpg"><br>
 											<p>제목제목제목</p></a></li>
 										<li>19,000</li>
 										<li><input type="number" min="1" max="999" value="1"></li>
@@ -112,7 +114,7 @@
 									<ul id="detail">
 										<li><input type="checkbox" id="b1"></li>
 										<li><a href="#"><img
-												src="../resource/images/book/4178687.jpg"><br>
+												src="../../resources/images/book/4178687.jpg"><br>
 											<p>제목제목제목</p></a></li>
 										<li>19,000</li>
 										<li><input type="number" min="1" max="999" value="1"></li>
@@ -123,7 +125,7 @@
 									<ul id="detail">
 										<li><input type="checkbox" id="b1"></li>
 										<li><a href="#"><img
-												src="../resource/images/book/4178687.jpg"><br>
+												src="../../resources/images/book/4178687.jpg"><br>
 											<p>제목제목제목</p></a></li>
 										<li>19,000</li>
 										<li><input type="number" min="1" max="999" value="1"></li>
@@ -133,7 +135,7 @@
 							</div>
 
 							<div id="buy">
-								<input type="submit" id="buybtn" value="구매하기">
+								<input type="submit" id="buybtn" value="구매하기" onclick="buyBook()">
 							</div>
 						</div>
 
@@ -150,6 +152,39 @@
 
 
 	<script>
+	function buyBook(){
+		location.href="BookBuy.jsp";
+	}
+	$('#deletebtn').click(function(){
+		$.ajax({
+			url:"basket.me",
+			type:"post",
+			data:{
+				
+			}
+			,success:function(data){
+				console.log("눌려쓰눌려쓰눌려쓰!");
+				alert("삭제에 실패하셨습니다.");
+			},error:function(data){
+				alert("삭제에 실패하셨습니다.");
+			},complete:function(){
+				alert('실행해라');
+			}
+			
+		});
+	});
+	
+	$('#book_basket').click(function(){
+		$.ajax({
+			url:"basket.me",
+			type:"get",
+			data:{
+				
+			}
+		});
+	});
+	
+	
 	function test1(){
       	var userId = $('#btn1').parent().find("input").val();  
     	window.open("/BOOKTIFULMUSIC/mSelectGenre.me?userId="+userId,"취향수정","width=1000, height=1000, left=450,top=50,location=0, directories=0,resizable=0,status=0,toolbar=0,menubar=0")		

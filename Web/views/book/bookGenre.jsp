@@ -7,7 +7,7 @@
 ArrayList<Book> ubList = (ArrayList<Book>)request.getAttribute("ubList");
 ArrayList<Book> sList = (ArrayList<Book>)request.getAttribute("sList");
 
-String[] genre = request.getParameterValues("keyword");
+String genre = (String)request.getAttribute("genre");
 
 PageInfo pi = (PageInfo)request.getAttribute("pi");
 int listCount = pi.getListCount();
@@ -50,8 +50,8 @@ int endPage = pi.getEndPage(); %>
                             <tr>
                                 <td><input type="checkbox" id="gerne8" name="gerne8" class="check_list"><label id="inputGenre" for="gerne8">가정생활</label></td>
                                 <td><input type="checkbox" id="gerne9" name="gerne9" class="check_list"><label id="inputGenre" for="gerne9">인문</label></td>
-                                <td><input type="checkbox" id="gerne10" name="gerne10" class="check_list"><label id="inputGenre" for="gerne10">정치사회</label></td>
-                                <td><input type="checkbox" id="gerne11" name="gerne11" class="check_list"><label id="inputGenre" for="gerne11">경제경영</label></td>
+                                <td><input type="checkbox" id="gerne10" name="gerne10" class="check_list"><label id="inputGenre" for="gerne10">정치/사회</label></td>
+                                <td><input type="checkbox" id="gerne11" name="gerne11" class="check_list"><label id="inputGenre" for="gerne11">경제/경영</label></td>
                                 <td><input type="checkbox" id="gerne12" name="gerne12" class="check_list"><label id="inputGenre" for="gerne12">건강</label></td>
                                 <td><input type="checkbox" id="gerne13" name="gerne13" class="check_list"><label id="inputGenre" for="gerne13">교양과학</label></td>
                                 <td><input type="checkbox" id="gerne14" name="gerne14" class="check_list"><label id="inputGenre" for="gerne14">외국어</label></td>
@@ -83,7 +83,7 @@ int endPage = pi.getEndPage(); %>
                             
                         </ul>
                         <div id="searchbtn">
-                        <input type="submit" id="searchkey" name="searchkey" onclick="searchGenre()" value="검색">
+                        <input type="button" id="searchkey" name="searchkey" onclick="searchGenre()" value="검색">
                         </div>
                     </div>
                 </div>
@@ -102,10 +102,12 @@ int endPage = pi.getEndPage(); %>
 	                function searchGenre(){
 	                	var gArr = "";
 	                	var genre=$('input[name=keyword]').each(function(){
-							gArr += $(this).val()+",";
+	    					gArr += $(this).val()+",";
 	                	});
-						location.href="/BOOKTIFULMUSIC/bSearchGenre.bo?keyword="+gArr;
+	    				location.href="/BOOKTIFULMUSIC/bSearchGenre.bo?keyword="+gArr;
 	                }
+
+	                
                     $(function(){
                         var a = document.getElementsByClassName('check_list');
                         var b = document.getElementById('selected_genre');
@@ -200,11 +202,16 @@ int endPage = pi.getEndPage(); %>
         </div>
         <div id="total" style="margin-bottom:120px;">
              <div id="numberList">
-					<button onclick="location.href='<%= request.getContextPath() %>/bGenreList.bo?currentPage=1'"><<</button>
 					<%  if(currentPage <= 1){  %>
 					<button disabled><</button>
 					<%  }else{ %>
-					<button onclick="location.href='<%= request.getContextPath() %>/bGenreList.bo?currentPage=<%=currentPage - 1 %>'"><</button>
+						<% if( m != null){ %>
+							<button onclick="location.href='<%= request.getContextPath() %>/bUserGenre.bo?currentPage=<%=currentPage - 1 %>'"><</button>
+						<% } else if(sList != null) { %>
+							<button onclick="location.href='<%= request.getContextPath() %>/bSearchGenre.bo?currentPage=<%=currentPage - 1 %>'"><</button>
+						<% } else { %>
+							<button onclick="location.href='<%= request.getContextPath() %>/bGenreList.bo?currentPage=<%=currentPage - 1 %>'"><</button>
+						<% } %>
 					<%  } %>
 					
 					<% for(int p = startPage; p <= endPage; p++){
@@ -212,18 +219,28 @@ int endPage = pi.getEndPage(); %>
 					%>
 						<button disabled><%= p %></button>
 					<%      }else{ %>
-						<button onclick="location.href='<%= request.getContextPath() %>/bGenreList.bo?currentPage=<%= p %>'"><%= p %></button>
+						<% if( m != null){ %>
+							<button onclick="location.href='<%= request.getContextPath() %>/bUserGenre.bo?userId=<%= m.getUserId() %>&currentPage=<%= p %>'"><%=p %></button>
+						<% } else if(sList != null) { %>
+							<button onclick="location.href='<%= request.getContextPath() %>/bSearchGenre.bo?keyword=<%=genre%>&currentPage=<%= p %>'"><%=p %></button>
+						<% } else { %>
+							<button onclick="location.href='<%= request.getContextPath() %>/bGenreList.bo?currentPage=<%= p %>'"><%=p %></button>
+						<% } %>
 					<%      } %>
 					<% } %>
 						
 					<%  if(currentPage >= maxPage){  %>
 					<button disabled>></button>
 					<%  }else{ %>
-					<button onclick="location.href='<%= request.getContextPath() %>/bGenreList.bo?currentPage=<%=currentPage + 1 %>'">></button>
+						<% if( m != null){ %>
+							<button onclick="location.href='<%= request.getContextPath() %>/bUserGenre.bo?currentPage=<%=currentPage + 1 %>'">></button>
+						<% } else if(sList != null) { %>
+							<button onclick="location.href='<%= request.getContextPath() %>/bSearchGenre.bo?currentPage=<%=currentPage + 1 %>'">></button>
+						<% } else { %>
+							<button onclick="location.href='<%= request.getContextPath() %>/bGenreList.bo?currentPage=<%=currentPage + 1 %>'">></button>
+						<%} %>
 					<%  } %>
-					<button onclick="location.href='<%= request.getContextPath() %>/bGenreList.bo?currentPage=<%= maxPage %>'">>></button>		
              </div>
-
              <div id="musicLike_search">
                  <select class="search_tool">
                      <option value="제목순">제목순</option>

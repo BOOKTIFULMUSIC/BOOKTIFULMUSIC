@@ -20,10 +20,10 @@
 
 			<div id="sub_menu">
 				<ul>
-					<li><a href="../view/My Page_1.html">나의정보</a></li>
-					<li>| <a href="../view/My Page_2.html">장바구니</a></li>
-					<li><a href="../view/My Page_3.html">구매목록</a></li>
-					<li>| <a href="../view/Buy_Voucher.html">이용권구매</a></li>
+					<li><a href="../member/MyPage1.jsp">나의정보</a></li>
+					<li>| <a href="../member/MyPage2.jsp">장바구니</a></li>
+					<li><a href="../member/MyPage3.jsp">구매목록</a></li>
+					<li>| <a href="../member/MyPage4.jsp">이용권구매</a></li>
 				</ul>
 			</div>
 
@@ -32,7 +32,7 @@
 
 			<div id="con1">
 				<div class="user_info">
-					<img src="../resources/images/icon/ICON.png" id="photo">
+					<img src="../../resources/images/icon/ICON.png" id="photo">
 					<ul id="circle_ul">
 						<li>아이디&nbsp;&nbsp;:&nbsp;&nbsp;<%= m.getUserId() %></li>
 						<li>이&nbsp;&nbsp;&nbsp;름&nbsp;&nbsp;:&nbsp;&nbsp;<%= m.getUserName() %></li>

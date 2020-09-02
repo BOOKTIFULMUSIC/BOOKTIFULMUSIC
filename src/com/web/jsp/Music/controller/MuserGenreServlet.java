@@ -42,6 +42,7 @@ public class MuserGenreServlet extends HttpServlet {
 		int maxPage;
 		int currentPage;
 		int limit;
+		int buttonCount = 5;
 		currentPage = 1;
 		limit = 12;
 		
@@ -51,8 +52,8 @@ public class MuserGenreServlet extends HttpServlet {
 		int listCount = ms.getListCount();
 		
 		maxPage = (int)((double)listCount/limit+1);
-		startPage = ((int)((double)currentPage/limit+1)-1)*limit+1;
-		endPage = startPage + limit -1;
+		startPage = ((int)((double)currentPage/buttonCount+1)-1)*buttonCount+1;
+		endPage = startPage + buttonCount -1;
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
@@ -67,8 +68,8 @@ public class MuserGenreServlet extends HttpServlet {
 		if(umList != null) {
 			page = "views/Music/musicGenre.jsp";
 			request.setAttribute("umList", umList);
-			endPage = startPage+limit-1;
-			PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
+			endPage = startPage+buttonCount-1;
+			PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage,buttonCount);
 			request.setAttribute("pi", pi);
 		}else {
 			page = "views/common/errorPage.jsp";

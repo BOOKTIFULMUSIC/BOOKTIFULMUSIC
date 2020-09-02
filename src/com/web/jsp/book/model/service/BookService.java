@@ -44,5 +44,11 @@ public class BookService {
 		return sList;
 	}
 
-	
+	public int getSearchListCount(String[] gArr) {
+		con = getConnection();
+		int SearchlistCount = bDao.getSearchListCount(con,gArr);
+		close(con);
+		return SearchlistCount;
+	}
+
 }

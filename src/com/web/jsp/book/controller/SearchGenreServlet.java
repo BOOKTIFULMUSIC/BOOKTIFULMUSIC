@@ -1,7 +1,6 @@
 package com.web.jsp.book.controller;
 
 import java.io.IOException;
-import java.sql.Array;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -9,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.web.jsp.book.model.service.BookService;
 import com.web.jsp.book.model.vo.Book;
@@ -35,7 +35,7 @@ public class SearchGenreServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String genre = request.getParameter("keyword");
-
+		System.out.println(genre);
 		String gArr[] = genre.split(",");
 		
 		for(int i=0; i<gArr.length; i++) {
@@ -52,17 +52,19 @@ public class SearchGenreServlet extends HttpServlet {
 		int maxPage;
 		int currentPage;
 		int limit;
+		int buttonCount = 5;
 		currentPage = 1;
 		limit = 12;
 		
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		int listCount = bs.getListCount();
+		int SearchlistCount = bs.getSearchListCount(gArr);
+		System.out.println(SearchlistCount);
 		
-		maxPage = (int)((double)listCount/limit+1);
-		startPage = ((int)((double)currentPage/limit+1)-1)*limit+1;
-		endPage = startPage + limit -1;
+		maxPage = (int)((double)SearchlistCount/limit+1);
+		startPage = ((int)((double)currentPage/buttonCount+1)-1)*buttonCount+1;
+		endPage = startPage + buttonCount -1;
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
@@ -74,9 +76,10 @@ public class SearchGenreServlet extends HttpServlet {
 		String page = "";
 		if(sList != null) {
 			page = "views/book/bookGenre.jsp";
+			request.setAttribute("genre", genre);
 			request.setAttribute("sList", sList);
-			endPage = startPage+limit-1;
-			PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
+			endPage = startPage+buttonCount-1;
+			PageInfo pi = new PageInfo(currentPage,SearchlistCount,limit,maxPage,startPage,endPage,buttonCount);
 			request.setAttribute("pi", pi);
 		}else {
 			page = "views/common/errorPage.jsp";

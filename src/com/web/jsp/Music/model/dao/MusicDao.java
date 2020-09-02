@@ -175,4 +175,80 @@ public class MusicDao {
 		}
 		return umList;
 	}
+	
+	public int getSearchListCount(Connection con, String[] gArr) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("searchGenreList");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			for(String genre : gArr) {
+				pstmt.setString(1, genre);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					result += rset.getInt(1);
+				}
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	public ArrayList<Music> searchGenre(Connection con, String[] gArr, int currentPage, int limit) {
+		ArrayList<Music> sList = null;
+		ArrayList<Music> AllList = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("searchGenre");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			int startRow = (currentPage-1)*limit +1;
+			int endRow = startRow + limit -1;
+			AllList = new ArrayList<Music>();
+			for(String genre : gArr) {
+				pstmt.setString(1, genre);
+				pstmt.setInt(2, endRow);
+				pstmt.setInt(3, startRow);
+		
+				rset = pstmt.executeQuery();
+				
+				sList = new ArrayList<Music>();
+				
+				while(rset.next()) {
+					Music m = new Music();
+					m.setMusicNo(rset.getInt(1));
+					m.setMusicNm(rset.getString("music_Nm"));
+					m.setMusicArtist(rset.getString("music_Artist"));
+					m.setMusicGenre(rset.getString("music_Genre"));
+					m.setRelativeAlbumNo(rset.getString("relative_Album_No"));
+					m.setLikeMusic(rset.getString("like_Music"));
+					m.setMusicImage(rset.getString("music_Image"));
+					m.setMusicType(rset.getString("music_Type"));
+					sList.add(m);
+					
+				}
+					for(int i= 0; i < 1; i++) {
+						AllList.addAll(sList);
+						i = 2;
+					}
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return AllList;
+	}
+
 }

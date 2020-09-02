@@ -43,7 +43,7 @@
                <% for(Music mu : list){ int rank; %>
                   <%for(int i=1; i<101; i++){ rank = i; %>
                     <td><%= rank %></td>
-                    <td><a href="../view/Music_Info.html"><img src="${pageContext.request.contextPath}/resources/images/music/<%= mu.getAlbumImage() %>" alt=""></a></td>
+                    <td><a href="../view/Music_Info.html"><img src="${pageContext.request.contextPath}<%=mu.getMusicImage()%>" alt=""></a></td>
                     <td>
                         <ul>
                             <li style="font-size: 14pt; color: black;"><a href="../view/Music_Info.html"><%= mu.getMusicNm()%></a></li>
