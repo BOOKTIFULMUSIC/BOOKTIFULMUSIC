@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*" import="com.web.jsp.Music.model.vo.*" %>
   
-<% ArrayList<Music> list = (ArrayList<Music>)request.getAttribute("list"); %>    
+<% ArrayList<Music> list = (ArrayList<Music>)request.getAttribute("list"); 
+String mui = (String)request.getAttribute("title");
+%>    
     
 <!DOCTYPE html>
 <html lang="ko">
@@ -39,11 +41,11 @@
                 
                <% for(Music mu : list){ %>              	 
                     <td><%= mu.getMusicNo() %></td>
-                    <td><a href="../view/Music_Info.html"><img src="${pageContext.request.contextPath}/resources/images/music/<%=mu.getMusicImage()%>" alt=""></a></td>
+                    <td><a onclick="music_detail()" style= "cousor:pointer;"><img src="${pageContext.request.contextPath}/resources/images/music/<%=mu.getMusicImage()%>" alt=""></a></td>
                     <td>
                         <ul>
-                            <li style="font-size: 14pt; color: black;"><a href="../view/Music_Info.html"><%= mu.getMusicNm()%></a></li>
-                            <li style="font-size: 14pt; color: lightgray;"><%= mu.getMusicArtist()%></li>
+                            <li style="font-size: 14pt; color: black;"><a onclick="music_detail()" id="title"><%= mu.getMusicNm()%></a></li>
+                            <li style="font-size: 14pt; color: lightgray;" onclick="music_detail()"><%= mu.getMusicArtist()%></li>
                         </ul>
                     </td>
                     <td><label onclick="like(this);" id="heart">♥</label><label><%= mu.getLikeMusic()%></label></td>
@@ -64,7 +66,13 @@
 <script>
 
 function music_chart(){
-	location.href="/BOOKTIFULMUSIC//mTop100.mo";
+   location.href="/BOOKTIFULMUSIC/mTop100.mo";
+}
+
+function music_detail(){
+	var title = $('#title').text();
+	console.log(title);
+   location.href="<%=request.getContextPath()%>/mSelectOne.mo?musicNm="+title;
 }
 </script>
 

@@ -250,5 +250,40 @@ public class MusicDao {
 		}
 		return AllList;
 	}
+	
+	public Music selectOne(Connection con, String title) {
+		Music m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOne");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, title);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Music();
+				
+				m.setMusicNm(title);
+				m.setMusicArtist(rset.getString("music_Artist"));
+				m.setMusicGenre(rset.getString("music_Genre"));
+				m.setRelativeAlbumNo(rset.getString("relative_Album_No"));
+				m.setLikeMusic(rset.getString("like_Music"));
+				m.setMusicImage(rset.getString("music_Image"));
+				m.setMusicType(rset.getString("music_Type"));
+
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	}
+
 
 }
