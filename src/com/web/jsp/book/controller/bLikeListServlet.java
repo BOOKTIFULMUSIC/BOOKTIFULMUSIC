@@ -8,23 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.web.jsp.book.model.service.BookService;
 import com.web.jsp.book.model.vo.Book;
 import com.web.jsp.book.model.vo.PageInfo;
 
 /**
- * Servlet implementation class SearchGenreServlet
+ * Servlet implementation class bLikeListServlet
  */
-@WebServlet("/bSearchGenre.bo")
-public class SearchGenreServlet extends HttpServlet {
+@WebServlet("/bLikeList.bo")
+public class bLikeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchGenreServlet() {
+    public bLikeListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,21 +32,7 @@ public class SearchGenreServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String genre = request.getParameter("keyword");
-		System.out.println(genre);
-		
-				
-		String gArr[] = genre.split(",");
-
-		
-		for(int i=0; i<gArr.length; i++) {
-			System.out.println(gArr[i]);
-		}
-		System.out.println(gArr.length);
-		
-		ArrayList<Book> sList = new ArrayList<>();
-		
+		ArrayList<Book> list = null;
 		BookService bs = new BookService();
 		
 		int startPage;
@@ -55,42 +40,40 @@ public class SearchGenreServlet extends HttpServlet {
 		int maxPage;
 		int currentPage;
 		int limit;
-		int buttonCount = 5;
 		currentPage = 1;
-		limit = 12;
+		int buttonCount = 5;
+		limit = 10;
 		
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		int SearchlistCount = bs.getSearchListCount(gArr);
-		System.out.println(SearchlistCount);
 		
-		maxPage = (int)((double)SearchlistCount/limit+1);
-		startPage = ((int)((double)currentPage/buttonCount+1)-1)*buttonCount+1;
+		int listCount = bs.getListCount();
+		
+		maxPage = (int)((double)listCount/limit+0.9);
+		
+		startPage = ((int)((double)currentPage/buttonCount+0.9)-1)*buttonCount+1;
+		
 		endPage = startPage + buttonCount -1;
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
 		
-		sList = bs.searchGenre(gArr,currentPage,limit);
+		list = bs.LikeList(currentPage,limit);
 		
-		System.out.println("최종 :" + sList);
-		
-		String page = "";
-		if(sList != null) {
-			page = "views/book/bookGenre.jsp";
-			request.setAttribute("genre", genre);
-			request.setAttribute("sList", sList);
+		String page="";
+		if(list!=null) {
+			page = "views/book/bookLike.jsp";
+			request.setAttribute("list", list);
+			
 			endPage = startPage+buttonCount-1;
-			PageInfo pi = new PageInfo(currentPage,SearchlistCount,limit,maxPage,startPage,endPage,buttonCount);
+			PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage,buttonCount);
 			request.setAttribute("pi", pi);
-		}else {
+		} else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "장르 검색에 실패하였습니다.");
+			request.setAttribute("msg", "좋아요순 목록 조회에 실패하였습니다.");
 		}
-		
 		request.getRequestDispatcher(page).forward(request, response);
-		
 	}
 
 	/**

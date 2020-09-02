@@ -187,6 +187,77 @@ public class MemberDao {
 		return pm;
 	}
 
+
+	public int insertBgenre(Connection con, String id, String[] bgen) {
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		String sql = prop.getProperty("insertBgenre");
+		String sql2 = prop.getProperty("insertBgenre2");
+		String bgenre=null;
+	
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+			for(int i=0; i<bgen.length; i++) {
+				bgenre = bgen[i];
+				pstmt2 = con.prepareStatement(sql2);
+				pstmt2.setString(1, id);
+				pstmt2.setString(2, bgenre);
+				result = pstmt2.executeUpdate();
+			}
+			System.out.println("bdao");
+
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(pstmt2);
+		}
+		
+		
+		return result;
+	}
+
+
+	public int insertMgenre(Connection con, String id, String[] mgen) {
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		String sql = prop.getProperty("insertMgenre");
+		String sql2 = prop.getProperty("insertMgenre2");
+		String Mgenre=null;
+	
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+			
+			for(int i=0; i<mgen.length-1; i++) {
+				Mgenre = mgen[i];
+				pstmt2 = con.prepareStatement(sql2);
+				pstmt2.setString(1, id);
+				pstmt2.setString(2, Mgenre);
+				result = pstmt2.executeUpdate();
+			}
+			System.out.println("mdao");
+			
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(pstmt2);
+		}
+		
+		
+		return result;
+	}
+
 }
 
 

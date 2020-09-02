@@ -1,6 +1,7 @@
-package com.web.jsp.Member.model.controller;
+package com.web.jsp.Member.model.service;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -8,24 +9,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.web.jsp.Member.model.service.MemberService;
-import com.web.jsp.Member.model.vo.Member;
-import com.web.jsp.Member.model.vo.PopListB;
-import com.web.jsp.Member.model.vo.PopListM;
+import org.json.simple.JSONObject;
 
 /**
- * Servlet implementation class PopSelectIn
+ * Servlet implementation class InsertGenre
  */
-@WebServlet("/mSelectGenre.me")
-public class SelectGenre extends HttpServlet {
+@WebServlet("/popInsert.mo")
+public class InsertGenre extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectGenre() {
+    public InsertGenre() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,16 +31,39 @@ public class SelectGenre extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		String id = request.getParameter("userId");
 		MemberService ms = new MemberService();
+		String[] bgenre = request.getParameterValues("bgenre");
+		String[] mgenre = request.getParameterValues("mgenre");
+
+
+		for(int i=0; i<bgenre.length;i++) {
+			System.out.println(bgenre[i]);
+		}
+		for(int i=0; i<mgenre.length;i++) {
+			System.out.println(mgenre[i]);
+		}
 		
-		ArrayList<PopListB> pb = ms.selectBook(id);
-		ArrayList<PopListM> pm = ms.selectMusic(id);
 		
-		request.setAttribute("popListB", pb);
-		request.setAttribute("popListM", pm);
-		request.getRequestDispatcher("views/member/pop_genre_select.jsp").forward(request, response);
+		
+		try {
+			ms.insertBgenre(id,bgenre);
+			ms.insertBgenre(id,mgenre);
+			System.out.println("서블릿까지 돌아오기 성공");
+			response.setContentType("text/html; charset=euc-kr"); //한글이 인코딩
+			PrintWriter out = response.getWriter(); //선언
+
+			String str="";
+			str = "<script language='javascript'>";
+			str += "opener.window.location.reload();";  //오프너 새로고침
+			str += "self.close();";   // 창닫기
+			str += "</script>";
+			out.print(str);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
 		
 		
 	}
