@@ -67,7 +67,7 @@ public class BestSellerListBottomServlet extends HttpServlet {
 		if(list!=null) {
 
 			endPage = startPage+limit-1;
-			PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
+			PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage,buttonCount);
 			resultMap = new HashMap<String,Object>();
 			resultMap.put("pi", pi);
 			resultMap.put("list", list);
