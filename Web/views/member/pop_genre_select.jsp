@@ -4,7 +4,8 @@
 <%  Member m = (Member)session.getAttribute("member"); 
 	ArrayList<PopListB> pb = (ArrayList<PopListB>)request.getAttribute("popListB");
 	ArrayList<PopListM> pm = (ArrayList<PopListM>)request.getAttribute("popListM");
-	
+	String userId = (String)request.getAttribute("userId");
+			
 %>
 
 <!DOCTYPE html>
@@ -111,7 +112,7 @@
             <li><input type="checkbox" value="종교음악" id="mgenre14" name="mgenre"><label for="mgenre14"># 종교음악</label></li>
             <li><input type="checkbox" value="어린이/태교" id="mgenre15" name="mgenre"><label for="mgenre15"># 어린이/태교</label></li>
         </ul>
-
+		<input type="hidden" value="<%= m.getUserId() %>" name="userId">
     </fieldset>
     <button type="submit" id="btn" onclick="btn()">수정 완료</button>
     </form>
@@ -125,7 +126,7 @@
     		  pbg = pbg +  pb.get(i).getPop_list_B() + "," ; 
     	   };
     	%>
-		<input type="hidden" value =  <%= pbg %>  name="userId">
+		<input type="hidden" value =  <%= pbg %>  name="userId1">
 		
     </div> 
     
@@ -136,7 +137,7 @@
     		  pmg = pmg +  pm.get(j).getPop_list_M() + "," ; 
     	   };
     	%>
-		<input type="hidden" value =  <%= pmg %>  name="userId">
+		<input type="hidden" value =  <%= pmg %>  name="userId1">
 		
     </div> 
     

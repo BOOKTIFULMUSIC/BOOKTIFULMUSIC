@@ -2,8 +2,9 @@
     pageEncoding="UTF-8" import="java.util.*" import="com.web.jsp.Music.model.vo.*" %>
   
 <% ArrayList<Music> list = (ArrayList<Music>)request.getAttribute("list"); 
-String mui = (String)request.getAttribute("title");
+String mui = (String)request.getAttribute("title"); 
 %>    
+    
     
 <!DOCTYPE html>
 <html lang="ko">

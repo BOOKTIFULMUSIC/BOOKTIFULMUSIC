@@ -65,10 +65,10 @@ public class MemberService {
 		return pm;
 	}
 
-	public int insertBgenre(String id, String[] bgen) {
+	public int insertBgenre(String id) {
 		con = getConnection();
 		
-		int result = mDao.insertBgenre(con, id, bgen);
+		int result = mDao.insertBgenre(con, id);
 		if(result > 0) commit(con);
 		else rollback(con);
 		close(con);
@@ -76,15 +76,38 @@ public class MemberService {
 		
 	}
 
-	public int insertMgenre(String id, String[] mgen) {
+	public int insertMgenre(String id) {
 		con = getConnection();
 		
-		int result = mDao.insertMgenre(con, id, mgen);
+		int result = mDao.insertMgenre(con, id);
 		if(result > 0) commit(con);
 		else rollback(con);
 		close(con);
 		return result;
 		
+	}
+
+	public int deleteBgenre(String id, String[] bgenre) {
+		con = getConnection();
+
+		int result = mDao.deleteBgenre(con, id, bgenre);
+		if(result > 0) commit(con);
+		else rollback(con);
+		close(con);
+
+
+		return result;
+	}
+
+	public int deleteMgenre(String id, String[] mgenre) {
+		con = getConnection();
+
+		int result = mDao.deleteMgenre(con, id, mgenre);
+		if(result > 0) commit(con);
+		else rollback(con);
+		close(con);
+
+		return result;
 	}
 
 }
