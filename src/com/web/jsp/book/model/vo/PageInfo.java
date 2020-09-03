@@ -15,10 +15,20 @@ public class PageInfo implements Serializable{
 	private int maxPage;
 	private int startPage;
 	private int endPage;
-	
+	private int buttonCount;
 	public PageInfo() {
 	}
 
+	public PageInfo(int currentPage, int listCount, int limit, int maxPage, int startPage, int endPage,int buttonCount) {
+		super();
+		this.currentPage = currentPage;
+		this.listCount = listCount;
+		this.limit = limit;
+		this.maxPage = maxPage;
+		this.startPage = startPage;
+		this.endPage = endPage;
+		this.buttonCount = buttonCount;
+	}
 	public PageInfo(int currentPage, int listCount, int limit, int maxPage, int startPage, int endPage) {
 		super();
 		this.currentPage = currentPage;
@@ -27,7 +37,10 @@ public class PageInfo implements Serializable{
 		this.maxPage = maxPage;
 		this.startPage = startPage;
 		this.endPage = endPage;
+		
 	}
+	
+	
 
 	public int getCurrentPage() {
 		return currentPage;
@@ -76,11 +89,18 @@ public class PageInfo implements Serializable{
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
+	public int getButtonCount() {
+		return buttonCount;
+	}
 
+	public void setButtonCount(int buttonCount) {
+		this.buttonCount = buttonCount;
+	}
+	
 	@Override
 	public String toString() {
 		return "PageInfo [currentPage=" + currentPage + ", listCount=" + listCount + ", limit=" + limit + ", maxPage="
-				+ maxPage + ", startPage=" + startPage + ", endPage=" + endPage + "]";
+				+ maxPage + ", startPage=" + startPage + ", endPage=" + endPage + ", buttonCount" +buttonCount +"]";
 	}
 	
 }

@@ -187,6 +187,101 @@ public class MemberDao {
 		return pm;
 	}
 
+
+	public int insertBgenre(Connection con, String id) {
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertBgenre");
+	
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			result = pstmt.executeUpdate();
+
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
+	public int insertMgenre(Connection con, String id) {
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMgenre");
+	
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			result = pstmt.executeUpdate();
+			
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
+	public int deleteBgenre(Connection con, String id, String[] bgenre) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertBgenre2");
+		System.out.println(id+"bgenre");
+		try {
+			for(int i=0; i<bgenre.length;i++) {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.setString(2, bgenre[i]);
+				result = pstmt.executeUpdate();
+			}
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int deleteMgenre(Connection con, String id, String[] mgenre) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMgenre2");
+		System.out.println(id+"mgenre");
+	
+		try {
+			for(int i=0; i<mgenre.length;i++) {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.setString(2, mgenre[i]);
+				result = pstmt.executeUpdate();
+			}
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+
+	}
+
 }
 
 

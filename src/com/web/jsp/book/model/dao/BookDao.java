@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.web.jsp.book.model.vo.Book;
@@ -134,5 +135,162 @@ public class BookDao {
 		}
 		return ubList;
 	}
+	public ArrayList<Book> searchGenre(Connection con, String[] gArr,int currentPage, int limit) {
+		ArrayList<Book> sList = null;
+		ArrayList<Book> AllList = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("searchGenre");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			int startRow = (currentPage-1)*limit +1;
+			int endRow = startRow + limit -1;
+			AllList = new ArrayList<Book>();
+			for(String genre : gArr) {
+				pstmt.setString(1, genre);
+				pstmt.setInt(2, endRow);
+				pstmt.setInt(3, startRow);
+		
+				rset = pstmt.executeQuery();
+				
+				sList = new ArrayList<Book>();
+				
+				while(rset.next()) {
+					Book bo = new Book();
+					bo.setBno(rset.getLong("BNO"));
+					bo.setBtitle(rset.getString("BTITLE"));
+					bo.setAuthor(rset.getString("PUBLISHER"));
+					bo.setWriterDate(rset.getString("WRITERDATE"));
+					bo.setBgenre(rset.getString("BGENRE"));
+					bo.setPrice(rset.getInt("PRICE"));
+					bo.setbLikeCount(rset.getInt("BLIKECOUNT"));
+					bo.setbReviewCount(rset.getInt("BREVIEWCOUNT"));
+					bo.setbImage(rset.getString("BIMAGE"));
+					bo.setbStory(rset.getString("BSTORY"));
+					sList.add(bo);
+					
+				}
+					for(int i= 0; i < 1; i++) {
+						AllList.addAll(sList);
+						i = 2;
+					}
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return AllList;
+	}
+	
+	public int getSearchListCount(Connection con,String[] gArr) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("searchGenreList");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			for(String genre : gArr) {
+				pstmt.setString(1, genre);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					result += rset.getInt(1);
+				}
+				
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	public ArrayList<Book> LikeList(Connection con, int currentPage, int limit) {
+		ArrayList<Book> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("likeList");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			int startRow = (currentPage-1)*limit +1; // 3-1*10 21
+			int endRow = startRow + limit -1; // 30
+			pstmt.setInt(1, endRow);
+			pstmt.setInt(2, startRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Book>();
+			
+			while(rset.next()) {
+				Book bo = new Book();
+				bo.setBno(rset.getLong("BNO"));
+				bo.setBtitle(rset.getString("BTITLE"));
+				bo.setAuthor(rset.getString("PUBLISHER"));
+				bo.setWriterDate(rset.getString("WRITERDATE"));
+				bo.setBgenre(rset.getString("BGENRE"));
+				bo.setPrice(rset.getInt("PRICE"));
+				bo.setbLikeCount(rset.getInt("BLIKECOUNT"));
+				bo.setbReviewCount(rset.getInt("BREVIEWCOUNT"));
+				bo.setbImage(rset.getString("BIMAGE"));
+				bo.setbStory(rset.getString("BSTORY"));
+			
+				list.add(bo);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	public Book selectOne(Connection con, String title) {
+		Book b = null;
+
+	      PreparedStatement pstmt = null;
+	      ResultSet rset = null;
+
+	      String sql = prop.getProperty("selectOne");
+
+	      try{
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, title);
+
+	         rset = pstmt.executeQuery();
+
+	         if(rset.next()){
+	            b = new Book();
+	            b.setBno(rset.getLong("BNO"));
+	            b.setBtitle(title);
+	            b.setAuthor(rset.getString("PUBLISHER"));
+	            b.setWriterDate(rset.getString("WRITERDATE"));
+	            b.setBgenre(rset.getString("BGENRE"));
+	            b.setPrice(rset.getInt("PRICE"));
+	            b.setbLikeCount(rset.getInt("BLIKECOUNT"));
+	            b.setbReviewCount(rset.getInt("BREVIEWCOUNT"));
+	            b.setbImage(rset.getString("BIMAGE"));
+	            b.setbStory(rset.getString("BSTORY"));
+	         }
+
+
+	      }catch(SQLException e){
+	         e.printStackTrace();
+	      }finally{
+	         close(rset);
+	         close(pstmt);
+	      }
+
+	      return b;
+	   }
 
 }
