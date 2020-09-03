@@ -40,12 +40,11 @@
 						for (int i = listCnt; i < listCnt + 5; i++) {
 					%>
 
-					<li class="book_img" id="best_middle<%=i + 1%>"><a
-						href="../view/Book_Info.html"><img
-							src="${pageContext.request.contextPath}<%= bList.get(i).getbImage() %>">
+					<li class="book_img" id="best_middle<%=i + 1%>"><a onclick="book_detail()" style="cursor: pointer;">
+					<img src="${pageContext.request.contextPath}<%= bList.get(i).getbImage() %>">
 							<div id="text">
 								<p class="book_rank"><%=i + 1%></p>
-								<P class="book_name"><%=bList.get(i).getBtitle()%></P>
+								<P class="book_name" id="title"><%=bList.get(i).getBtitle()%></P>
 							</div> </a></li>
 					<%
 						}
@@ -189,7 +188,10 @@
 			 } 
 	}
 	
-	
+	function book_detail(){
+        var title = $('#title').text();
+        location.href="/BOOKTIFULMUSIC/bSelectOne.bo?btitle="+title;
+     }
 	</script>
 </body>
 </html>
