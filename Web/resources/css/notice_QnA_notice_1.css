@@ -140,11 +140,11 @@ a>label:hover{
 
 /* 하단 숫자리스트 및 검색창 */
 #numberList{
-    width: 300px;
+    width: 500px;
     height: 30px;
     /* border: 1px solid black; */
     margin: auto;
- 
+ 	text-align: center;
 }
 
 #numberList a{

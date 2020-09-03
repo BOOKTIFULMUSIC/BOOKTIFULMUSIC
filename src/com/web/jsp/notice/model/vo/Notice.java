@@ -8,8 +8,10 @@ public class Notice implements Serializable{
 
 	private static final long serialVersionUID = -9010856112129664199L;
 	
-	private String nno;
-	private String type;
+	private int rnum;
+
+	private int nno;
+	private String ntype;
 	private String ntitle;
 	private String nwriter;
 	private String ncontent;
@@ -17,30 +19,39 @@ public class Notice implements Serializable{
 	
 	public Notice() {}
 
-	public Notice(String nno, String type, String ntitle, String nwriter, String ncontent, Date ndate) {
+	public Notice(int rnum, int nno, String ntype, String ntitle, String nwriter, String ncontent, Date ndate) {
 		super();
+		this.rnum = rnum;
 		this.nno = nno;
-		this.type = type;
+		this.ntype = ntype;
 		this.ntitle = ntitle;
 		this.nwriter = nwriter;
 		this.ncontent = ncontent;
 		this.ndate = ndate;
 	}
 
-	public String getNno() {
+	public int getRnum() {
+		return rnum;
+	}
+	
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+	
+	public int getNno() {
 		return nno;
 	}
 
-	public void setNno(String nno) {
+	public void setNno(int nno) {
 		this.nno = nno;
 	}
 
-	public String getType() {
-		return type;
+	public String getNtype() {
+		return ntype;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setNtype(String ntype) {
+		this.ntype = ntype;
 	}
 
 	public String getNtitle() {
@@ -77,7 +88,7 @@ public class Notice implements Serializable{
 
 	@Override
 	public String toString() {
-		return "nno=" + nno + ", type=" + type + ", ntitle=" + ntitle + ", nwriter=" + nwriter + ", ncontent="
+		return "rnum=" + rnum + "nno=" + nno + ", ntype=" + ntype + ", ntitle=" + ntitle + ", nwriter=" + nwriter + ", ncontent="
 				+ ncontent + ", ndate=" + ndate;
 	}
 	

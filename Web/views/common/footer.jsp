@@ -21,7 +21,7 @@
     </div>
     <script>
     	function goNotice(){
-    		location.href="<%=request.getContextPath()%>/nSelectList.no?ntype=N"; 
+    		location.href="/BOOKTIFULMUSIC/nSelectList.no?ntype=N"; 
 		}
     	function goClause(){
 			location.href="/BOOKTIFULMUSIC/clausePage.jsp";

@@ -11,7 +11,7 @@
 <body>
 	<div class="header">
             <div id="logo">
-                <p>BOOKTIFUL<br>MUSIC</p>
+                <p onclick="goHome()">BOOKTIFUL<br>MUSIC</p>
             </div>
             <div id="search">
                 <input type="search" id="searchbar">
@@ -110,7 +110,7 @@
 			location.href="/BOOKTIFULMUSIC/mGenreList.mo";
 		}
 		function goNotice(){
-			location.href="/BOOKTIFULMUSIC/nSelectList.no";
+			location.href="/BOOKTIFULMUSIC/nSelectList.no?ntype=N";
 		}
 	</script>
 </body>
