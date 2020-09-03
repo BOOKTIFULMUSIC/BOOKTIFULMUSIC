@@ -59,4 +59,13 @@ con = getConnection();
 		return list;
 	}
 
+	public Book selectOne(String title) {
+		 con = getConnection();
+	      
+	      Book b = bDao.selectOne(con,title);
+	      
+	      close(con);
+	      return b;
+	}
+
 }

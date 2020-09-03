@@ -254,5 +254,43 @@ public class BookDao {
 		}
 		return list;
 	}
+	public Book selectOne(Connection con, String title) {
+		Book b = null;
+
+	      PreparedStatement pstmt = null;
+	      ResultSet rset = null;
+
+	      String sql = prop.getProperty("selectOne");
+
+	      try{
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, title);
+
+	         rset = pstmt.executeQuery();
+
+	         if(rset.next()){
+	            b = new Book();
+	            b.setBno(rset.getLong("BNO"));
+	            b.setBtitle(title);
+	            b.setAuthor(rset.getString("PUBLISHER"));
+	            b.setWriterDate(rset.getString("WRITERDATE"));
+	            b.setBgenre(rset.getString("BGENRE"));
+	            b.setPrice(rset.getInt("PRICE"));
+	            b.setbLikeCount(rset.getInt("BLIKECOUNT"));
+	            b.setbReviewCount(rset.getInt("BREVIEWCOUNT"));
+	            b.setbImage(rset.getString("BIMAGE"));
+	            b.setbStory(rset.getString("BSTORY"));
+	         }
+
+
+	      }catch(SQLException e){
+	         e.printStackTrace();
+	      }finally{
+	         close(rset);
+	         close(pstmt);
+	      }
+
+	      return b;
+	   }
 
 }
