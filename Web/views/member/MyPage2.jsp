@@ -57,7 +57,7 @@
 
 							<div id="line_1">
 								<ul id="top_m">
-									<li id="all_check"><input type="checkbox" id="check_1"><label
+									<li id="all_check"><input type="checkbox" id="checkAll"><label
 										for="check_1">&nbsp;전체선택</label></li>
 									<li>도서정보</li>
 									<li>가격</li>
@@ -68,74 +68,83 @@
 							<div id="wishlist">
 								<div id="line_2">
 									<ul id="detail">
-										<li><input type="checkbox" id="b1"></li>
+										<li><input type="checkbox" id="b1" name="chkbox">
 										<li><a href="#"><img
 												src="../../resources/images/book/4178687.jpg"><br>
-											<p>제목제목제목</p></a></li>
+												<p>제목제목제목</p></a></li>
 										<li>19,000</li>
 										<li><input type="number" min="1" max="999" value="1"></li>
 										<li><input type="button" id="deletebtn" value="삭제"></li>
+										</li>
+
+									</ul>
+								</div>
+								
+								<div id="line_2">
+									<ul id="detail">
+										<li><input type="checkbox" id="b1" name="chkbox">
+										<li><a href="#"><img
+												src="../../resources/images/book/4178687.jpg"><br>
+												<p>제목제목제목</p></a></li>
+										<li>19,000</li>
+										<li><input type="number" min="1" max="999" value="1"></li>
+										<li><input type="button" id="deletebtn" value="삭제"></li>
+										</li>
 									</ul>
 								</div>
 								<div id="line_2">
 									<ul id="detail">
-										<li><input type="checkbox" id="b1"></li>
+										<li><input type="checkbox" id="b1" name="chkbox">
 										<li><a href="#"><img
 												src="../../resources/images/book/4178687.jpg"><br>
-											<p>제목제목제목</p></a></li>
+												<p>제목제목제목</p></a></li>
 										<li>19,000</li>
 										<li><input type="number" min="1" max="999" value="1"></li>
 										<li><input type="button" id="deletebtn" value="삭제"></li>
+										</li>
 									</ul>
 								</div>
 								<div id="line_2">
 									<ul id="detail">
-										<li><input type="checkbox" id="b1"></li>
+										<li><input type="checkbox" id="b1" name="chkbox">
 										<li><a href="#"><img
 												src="../../resources/images/book/4178687.jpg"><br>
-											<p>제목제목제목</p></a></li>
+												<p>제목제목제목</p></a></li>
 										<li>19,000</li>
 										<li><input type="number" min="1" max="999" value="1"></li>
 										<li><input type="button" id="deletebtn" value="삭제"></li>
+										</li>
 									</ul>
 								</div>
 								<div id="line_2">
 									<ul id="detail">
-										<li><input type="checkbox" id="b1"></li>
+										<li><input type="checkbox" id="b1" name="chkbox">
 										<li><a href="#"><img
 												src="../../resources/images/book/4178687.jpg"><br>
-											<p>제목제목제목</p></a></li>
+												<p>제목제목제목</p></a></li>
 										<li>19,000</li>
 										<li><input type="number" min="1" max="999" value="1"></li>
 										<li><input type="button" id="deletebtn" value="삭제"></li>
+										</li>
 									</ul>
 								</div>
 								<div id="line_2">
 									<ul id="detail">
-										<li><input type="checkbox" id="b1"></li>
+										<li><input type="checkbox" id="b1" name="chkbox">
 										<li><a href="#"><img
 												src="../../resources/images/book/4178687.jpg"><br>
-											<p>제목제목제목</p></a></li>
+												<p>제목제목제목</p></a></li>
 										<li>19,000</li>
 										<li><input type="number" min="1" max="999" value="1"></li>
 										<li><input type="button" id="deletebtn" value="삭제"></li>
-									</ul>
-								</div>
-								<div id="line_2">
-									<ul id="detail">
-										<li><input type="checkbox" id="b1"></li>
-										<li><a href="#"><img
-												src="../../resources/images/book/4178687.jpg"><br>
-											<p>제목제목제목</p></a></li>
-										<li>19,000</li>
-										<li><input type="number" min="1" max="999" value="1"></li>
-										<li><input type="button" id="deletebtn" value="삭제"></li>
+										</li>
 									</ul>
 								</div>
 							</div>
 
 							<div id="buy">
-								<input type="submit" id="buybtn" value="구매하기" onclick="buyBook()">
+								<input type="submit" id="buybtn" value="구매하기"
+									onclick="buyBook()">
 							</div>
 						</div>
 
@@ -155,7 +164,16 @@
 	function buyBook(){
 		location.href="BookBuy.jsp";
 	}
+	
+	
 	$('#deletebtn').click(function(){
+		var book="";
+		var checkArray = new Array();
+		
+	/* 	<c:forEach var="checkList" items="$">
+			
+		</c:forEach> */
+		
 		$.ajax({
 			url:"basket.me",
 			type:"post",
@@ -192,7 +210,21 @@
     
     function test2(){
     window.open("../view/modifying_Information.html","정보수정","width=1000, height=1000, left=450,top=50,location=0, directories=0,resizable=0,status=0,toolbar=0,menubar=0")
-}
+    }
+    var i=0;
+    $('#checkAll').click(function(){
+    		
+    		if(i%2==0){
+    		$('input[name=chkbox]:checkbox').prop("checked",true);
+    		i=i+1;
+    		
+    		}else{
+    			$('input[name=chkbox]:checkbox').prop("checked",false);
+    			i=i+1;
+    		}
+    	});
+    
+    
 </script>
 </body>
 </html>

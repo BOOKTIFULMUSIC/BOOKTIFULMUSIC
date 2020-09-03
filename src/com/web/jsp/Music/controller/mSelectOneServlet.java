@@ -1,7 +1,6 @@
-package com.web.jsp.Member.model.controller;
+package com.web.jsp.Music.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,22 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.web.jsp.Member.model.service.MemberService;
-import com.web.jsp.Member.model.vo.Member;
-import com.web.jsp.Member.model.vo.PopListB;
-import com.web.jsp.Member.model.vo.PopListM;
+import com.web.jsp.Music.model.service.MusicService;
+import com.web.jsp.Music.model.vo.Music;
 
 /**
- * Servlet implementation class PopSelectIn
+ * Servlet implementation class SelectOneServlet
  */
-@WebServlet("/mSelectGenre.me")
-public class SelectGenre extends HttpServlet {
+@WebServlet("/mSelectOne.mo")
+public class mSelectOneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectGenre() {
+    public mSelectOneServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,17 +32,25 @@ public class SelectGenre extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String id = request.getParameter("userId");
-		MemberService ms = new MemberService();
+		String title = request.getParameter("musicNm");
+		System.out.println(title);
 		
-		ArrayList<PopListB> pb = ms.selectBook(id);
-		ArrayList<PopListM> pm = ms.selectMusic(id);
+		MusicService ms = new MusicService();
 		
-		request.setAttribute("popListB", pb);
-		request.setAttribute("popListM", pm);
-		request.getRequestDispatcher("views/member/pop_genre_select.jsp").forward(request, response);
+		Music m = ms.selectOne(title);
 		
+		String page ="";
 		
+		if(m != null) {
+			page = "views/music/MusicDetail.jsp";
+			request.setAttribute("Music", m);
+		}else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "음원정보 불러오기를 실패했습니다.");
+		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
+		System.out.println(m);
 	}
 
 	/**

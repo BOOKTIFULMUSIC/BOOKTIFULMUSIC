@@ -82,7 +82,7 @@
 	<script>
     function test1(){
       	var userId = $('#btn1').parent().find("input").val();  
-    	window.open("/BOOKTIFULMUSIC/mSelectGenre.me?userId="+userId,"취향수정","width=1000, height=1000, left=450,top=50,location=0, directories=0,resizable=0,status=0,toolbar=0,menubar=0")		
+    	window.open("/BOOKTIFULMUSIC/mSelectGenre.me?userId="+userId,"취향수정","width=800, height=1000, left=450,top=50,location=0, directories=0,resizable=0,status=0,toolbar=0,menubar=0")		
     }
     
     function test2(){
